@@ -1,0 +1,14 @@
+<div role="group"
+  :class="['btn-group', 'dropdown', {'open': isopen}]">
+  <button
+    class="btn btn-default dropdown-toggle"
+    v-on:click.prevent="isopen = !isopen">
+    <span :class="['fa', button.icon]"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="headerButton">
+    <li v-for="line in button.items"
+      v-on:mousedown="select($event, line)">
+      <span v-html="line.title"></span>
+    </li>
+  </ul>
+</div>

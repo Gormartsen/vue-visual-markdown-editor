@@ -1,0 +1,32 @@
+{
+  "name": "vue-visual-markdown-editor",
+  "version": "0.1.0",
+  "description": "Visual Markdown Editor for Vue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gormartsen/vue-visual-markdown-editor.git"
+  },
+  "keywords": [
+    "markdown",
+    "vue",
+    "markdown",
+    "editor",
+    "vue",
+    "markdown",
+    "editor"
+  ],
+  "author": "Gormartsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gormartsen/vue-visual-markdown-editor/issues"
+  },
+  "homepage": "https://github.com/Gormartsen/vue-visual-markdown-editor#readme",
+  "dependencies": {
+    "markdown-it": "^8.4.1",
+    "turndown": "^4.0.1"
+  }
+}

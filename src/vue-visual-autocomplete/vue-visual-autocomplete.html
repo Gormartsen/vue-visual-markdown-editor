@@ -1,0 +1,17 @@
+<div role="group"
+  :class="['btn-group', 'dropdown', {'open': isopen}]">
+  <button
+    class="btn btn-default dropdown-toggle"
+    v-on:click.prevent="switchOpen">
+    <span :class="['fa', button.icon]"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="headerButton">
+    <li>
+      <input class="autocomplete" v-model="autocomplete">
+    </li>
+    <li v-for="line in liveItems"
+      v-on:mousedown="select($event, line)">
+      <span v-html="preview(line)"></span>
+    </li>
+  </ul>
+</div>

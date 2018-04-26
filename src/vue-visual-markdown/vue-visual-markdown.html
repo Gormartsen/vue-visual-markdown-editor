@@ -1,0 +1,43 @@
+<div class="vue-visual-markdown">
+  <div class="toolbar" >
+    <div class="btn-toolbar" role="toolbar">
+      <div
+        v-for="group in toolbarGroups"
+        class="btn-group">
+        <div
+          v-for="button in buttonByGroup(group)"
+          :is="'vue-visual-' + button.type"
+          :button="button"
+          :config="config"
+          :mode="editormode"
+          v-on:marktext="process_mark"
+          v-on:replacetext="process_replace"
+          v-on:clicked="process_click">
+            {{button}}
+        </div>
+      </div>
+      <div class="btn-group pull-right">
+        <button
+          class="btn btn-default"
+          v-on:click="switchMode">
+          <span v-if="editormode == 'markdown'" class="fa fa-eye"></span>
+          <span v-if="editormode == 'html'" class="fa fa-code"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <p
+    v-show="editormode == 'html'"
+    class="visualeditor"
+    v-on:input="changed"
+    v-on:change="changed"
+    contenteditable="true"></p>
+  <textarea
+    v-show="editormode == 'markdown'"
+    v-model="markdowncontent"
+    class="texteditor"
+    v-on:input="emitTextEditor"></textarea>
+  <div>
+    To upload file, please drag & drop it.
+  </div>
+</div>
