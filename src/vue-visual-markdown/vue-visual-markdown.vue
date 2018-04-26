@@ -1,4 +1,4 @@
-<template src="vue-visual-inline.html"></template>
+<template src="vue-visual-markdown.html"></template>
 <script>
 module.exports = {
   data: function(){
