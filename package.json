@@ -4,7 +4,10 @@
   "description": "Visual Markdown Editor for Vue",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-app": "node dev/build.js",
+    "copy-index": "node dev/copy-index.js",
+    "build": "npm run build-app && npm run copy-index",
+    "start": "node dev/live-server.js"
   },
   "repository": {
     "type": "git",
@@ -36,6 +39,7 @@
     "fs-extra": "^5.0.0",
     "live-server": "^1.2.0",
     "vue": "^2.5.16",
-    "vueify": "^9.4.1"
+    "vueify": "^9.4.1",
+    "watchify": "^3.11.0"
   }
 }

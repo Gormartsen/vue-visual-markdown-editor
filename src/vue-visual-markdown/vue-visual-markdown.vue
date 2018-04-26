@@ -2,7 +2,7 @@
 <script>
 module.exports = {
   data: function(){
-    var currentMode = vm.datastate['visualeditor'];
+    var currentMode;// = vm.datastate['visualeditor'];
     if(['html', 'markdown'].indexOf(currentMode) == -1) {
       currentMode = 'markdown';
     }
@@ -909,7 +909,7 @@ module.exports = {
         this.editormode = 'html';
         this.visualeditor.innerHTML = this.markdown.render(this.value);
       }
-      vm.datastate['visualeditor'] = this.editormode;
+      //vm.datastate['visualeditor'] = this.editormode;
       var self = this;
       setTimeout(function(){
         if(self.editormode == 'html') {

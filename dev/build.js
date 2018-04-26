@@ -3,7 +3,7 @@ var browserify = require('browserify')
 var vueify = require('vueify')
 var envify = require('envify/custom')
 
-browserify('index.js')
+browserify('dev/app.js')
   .transform(vueify)
   .plugin('vueify/plugins/extract-css', {
     out: './dist/bundle.css' // can also be a WritableStream
