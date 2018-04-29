@@ -1,6 +1,7 @@
 <style scoped lang="scss" src="vue-visual-markdown.scss"></style>
 <template src="vue-visual-markdown.html"></template>
 <script>
+
 module.exports = {
   data: function(){
     var currentMode;// = vm.datastate['visualeditor'];
@@ -246,7 +247,7 @@ module.exports = {
         'bold': {
           group: '1',
           type: 'inline',
-          icon: 'fa-bold',
+          icon: 'bold',
           tag: 'b',
           markdown: '**selection**',
           placeholder: 'bold text'
@@ -333,7 +334,7 @@ module.exports = {
         'header': {
           group: '1',
           type: 'dropdown',
-          icon: 'fa-header',
+          icon: 'heading',
           tag: 'h',
           handlerText: function(self, button, callback) {
             var start = self.texteditor.value.indexOf(self.textStart);

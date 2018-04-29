@@ -3,7 +3,7 @@
   <button
     class="btn btn-default dropdown-toggle"
     v-on:click.prevent="isopen = !isopen">
-    <span :class="['fa', button.icon]"></span>
+    <font-awesome-icon :icon="button.icon" />
   </button>
   <ul class="dropdown-menu" aria-labelledby="headerButton">
     <li v-for="line in button.items"

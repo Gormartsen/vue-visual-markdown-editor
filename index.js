@@ -2,6 +2,11 @@
 
 var VisualMarkdown = require('./src/vue-visual-markdown/vue-visual-markdown.vue')
 
+global.fontawesome = require('@fortawesome/fontawesome');
+fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faBold.js'));
+fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faHeading.js'));
+
+
 VisualMarkdown.components = {
   'vue-visual-autocomplete': require('./src/vue-visual-autocomplete/vue-visual-autocomplete.vue'),
   'vue-visual-dropdown': require('./src/vue-visual-dropdown/vue-visual-dropdown.vue'),
@@ -18,7 +23,7 @@ var MarkdownEditor = {
 
       Vue._visual_markdown_editor = true;
 
-      Vue.component('vue-visual-markdown', VisualMarkdown);    
+      Vue.component('vue-visual-markdown', VisualMarkdown);
   }
 };
 

@@ -7,6 +7,9 @@ module.exports = {
     }
   },
   props: ['button'],
+  components: {
+    'font-awesome-icon': require('@fortawesome/vue-fontawesome')['default']
+  },
   mounted: function(){
     var self = this;
     if(self.button.init) {

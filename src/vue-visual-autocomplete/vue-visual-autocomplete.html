@@ -2,8 +2,8 @@
   :class="['btn-group', 'dropdown', {'open': isopen}]">
   <button
     class="btn btn-default dropdown-toggle"
-    v-on:click.prevent="switchOpen">
-    <span :class="['fa', button.icon]"></span>
+    v-on:click.prevent="switchOpen">>
+    <font-awesome-icon :icon="button.icon" />
   </button>
   <ul class="dropdown-menu" aria-labelledby="headerButton">
     <li>
