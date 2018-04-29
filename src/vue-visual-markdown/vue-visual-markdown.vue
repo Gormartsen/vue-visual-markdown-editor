@@ -1,3 +1,4 @@
+<style scoped lang="scss" src="vue-visual-markdown.scss"></style>
 <template src="vue-visual-markdown.html"></template>
 <script>
 module.exports = {

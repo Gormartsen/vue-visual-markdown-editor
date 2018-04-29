@@ -1,3 +1,4 @@
+<style scoped lang="scss" src="vue-visual-dropdown.scss"></style>
 <template src="vue-visual-dropdown.html"></template>
 <script>
 module.exports = {
