@@ -7,9 +7,6 @@ module.exports = {
     }
   },
   props: ['button'],
-  components: {
-    'font-awesome-icon': global.FontAwesomeComponent
-  },
   mounted: function(){
     var self = this;
     if(self.button.init) {

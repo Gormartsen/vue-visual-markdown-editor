@@ -10,9 +10,6 @@ module.exports = {
       items: [],
     }
   },
-  components: {
-    'font-awesome-icon': global.FontAwesomeComponent
-  },
   props: ['button', 'mode'],
   mounted: function(){
     var self = this;
