@@ -5,7 +5,7 @@
 module.exports = {
   data: function(){
     var currentMode;// = vm.datastate['visualeditor'];
-    if(['html', 'markdown'].indexOf(currentMode) == -1) {
+    if (['html', 'markdown'].indexOf(currentMode) == -1) {
       currentMode = 'markdown';
     }
     return {
@@ -50,11 +50,11 @@ module.exports = {
       }
     },
     value: function(newValue) {
-      if(newValue == '') {
+      if (newValue == '') {
         this.markdowncontent = '';
         this.visualeditor.innerHTML = '';
       }
-      if(newValue != this.markdowncontent) {
+      if (newValue != this.markdowncontent) {
         this.markdowncontent = newValue;
       }
     },
@@ -78,7 +78,7 @@ module.exports = {
             var start = self.texteditor.selectionStart;
             var placeholder = '';
             var isImage = false;
-            if(file.mime.indexOf('image') != -1) {
+            if (file.mime.indexOf('image') != -1) {
               placeholder = ' ![Uploading ' + file.name + '](Please wait)';
               isImage = true;
             } else {
@@ -94,12 +94,12 @@ module.exports = {
               size: file.size,
               content: base64
             }, function(err, response, headers){
-              console.log(err,response, headers);
+              console.log(err, response, headers);
               var replaceStart = self.texteditor.value.indexOf(placeholder);
-              if(replaceStart != -1) {
-                if(err) {
+              if (replaceStart != -1) {
+                if (err) {
                   var replaceBy = ' [Uploading ' + file.name + '](failed)';
-                  if(isImage) {
+                  if (isImage) {
                     replaceBy = ' ![Uploading ' + file.name + '](failed)';
                   }
                   self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
@@ -107,7 +107,7 @@ module.exports = {
                   + self.texteditor.value.substr( replaceStart + placeholder.length, self.texteditor.value.length);
                 } else {
                   var replaceBy = ' [' + file.name + '](' + response.publicUrl + ')';
-                  if(isImage) {
+                  if (isImage) {
                     replaceBy = ' ![' + file.name + '](' + response.publicUrl + ')';
                   }
                   self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
@@ -142,7 +142,7 @@ module.exports = {
               }
             }
             var isImage = false;
-            if(file.mime.indexOf('image') != -1) {
+            if (file.mime.indexOf('image') != -1) {
               isImage = true;
             }
 
@@ -153,16 +153,16 @@ module.exports = {
               size: file.size,
               content: base64
             }, function(err, response, headers){
-              console.log(err,response, headers);
+              console.log(err, response, headers);
               setTimeout(function(){
                 var node = self.visualeditor.querySelector('uploading');
-                if(node) {
-                  if(err) {
+                if (node) {
+                  if (err) {
                     node.innerHTML = '<i class="fa fa-exclamation" aria-hidden="true"></i>'
                       + ' <b style="color:red"> Failed to upload ' + file.name + '</b>';
                   } else {
                     var element = ''
-                    if(isImage){
+                    if (isImage){
                       element = document.createElement('img');
                       element.src = response.publicUrl;
                       element.alt = file.name;
@@ -194,10 +194,10 @@ module.exports = {
       replacement: function (content, node) {
         var size = '';
         var color = '';
-        if(node.size){
+        if (node.size){
           size = ' size="' + node.size + '"';
         }
-        if(node.color){
+        if (node.color){
           color = ' color="' + node.color + '"';
         }
         return '<font' + size + color + '>' + content + '</font>'
@@ -227,10 +227,10 @@ module.exports = {
     toolbarGroups: function(){
       var groups = [];
       groups.push('default');
-      if(this.config.toolbar) {
-        for(var button of this.toolbar) {
-          if(button.group) {
-            if(groups.indexOf(button.group) == -1) {
+      if (this.config.toolbar) {
+        for (var button of this.toolbar) {
+          if (button.group) {
+            if (groups.indexOf(button.group) == -1) {
               groups.push(button.group);
             }
           }
@@ -318,7 +318,7 @@ module.exports = {
           tag: 'ol',
           item: 'li',
           before: function(){
-            if(!window.numlistcounter) {
+            if (!window.numlistcounter) {
               window.numlistcounter = 0;
             }
             window.numlistcounter = window.numlistcounter + 1;
@@ -340,13 +340,13 @@ module.exports = {
             var start = self.texteditor.value.indexOf(self.textStart);
 
             // find newline
-            if(start > 0 ){
+            if (start > 0 ){
               var newlinePos = start - 1;
-              while(true) {
-                if(newlinePos == 0) {
+              while (true) {
+                if (newlinePos == 0) {
                   break;
                 }
-                if(self.texteditor.value.substring(newlinePos, newlinePos + 1) == '\n') {
+                if (self.texteditor.value.substring(newlinePos, newlinePos + 1) == '\n') {
                   newlinePos = newlinePos + 1;
                   break;
                 }
@@ -359,13 +359,13 @@ module.exports = {
                 start = self.texteditor.value.indexOf(self.textStart);
             }
             var stop = self.texteditor.value.indexOf(self.textStop);
-            if(stop < self.texteditor.value.length - 1 ){
+            if (stop < self.texteditor.value.length - 1 ){
               var newlinePos = stop + 1;
-              while(true) {
-                if(newlinePos == self.texteditor.value.length) {
+              while (true) {
+                if (newlinePos == self.texteditor.value.length) {
                   break;
                 }
-                if(self.texteditor.value.substring(newlinePos, newlinePos + 1) == '\n') {
+                if (self.texteditor.value.substring(newlinePos, newlinePos + 1) == '\n') {
                   //newlinePos = newlinePos - 1;
                   break;
                 }
@@ -378,15 +378,15 @@ module.exports = {
                 stop = self.texteditor.value.indexOf(self.textStop);
             }
             var content = self.texteditor.value.substring(start + self.textStart.length, stop)
-            if(content == '') {
+            if (content == '') {
               content = button.placeholder;
             }
             var newlinePos = 0;
-            while(true) {
-              if(content.substr(newlinePos, 1) == '#') {
+            while (true) {
+              if (content.substr(newlinePos, 1) == '#') {
                 content = content.substr(newlinePos + 1);
               } else {
-                if(content.substr(newlinePos, 1) == ' ') {
+                if (content.substr(newlinePos, 1) == ' ') {
                   content = content.substr(newlinePos + 1);
                 }
                 break;
@@ -394,7 +394,7 @@ module.exports = {
             }
             var level = 1;
             var pref = '#';
-            while(level < button.level) {
+            while (level < button.level) {
               pref = pref + '#'
               level = level + 1;
             }
@@ -409,8 +409,8 @@ module.exports = {
             var element = self._findParentElement(self.visualeditor, node, /^H/);
             var el = document.createElement('H' + button.level);
             var placeholder = button.placeholder;
-            if(element == false) {
-              if(node.firstChild && node.firstChild.nodeName.search(/^H/) !== -1) {
+            if (element == false) {
+              if (node.firstChild && node.firstChild.nodeName.search(/^H/) !== -1) {
                 var frag = self._extractFrags(node.firstChild);
                 el.appendChild(frag);
                 var parent = node.parentNode;
@@ -418,7 +418,7 @@ module.exports = {
                 return callback(el);
               }
               var frag = self._extractFrags(node);
-              if(frag.textContent == '' && button.placeholder ) {
+              if (frag.textContent == '' && button.placeholder ) {
                 frag.appendChild(document.createTextNode(button.placeholder));
               }
               el.appendChild(frag);
@@ -474,9 +474,9 @@ module.exports = {
             self.colorpick = new iro.ColorPicker(el, self.config.colorpicker);
           },
           handlerText: function(self, button, callback) {
-            var color= false;
-            for(var children of self.$children) {
-              if(children.colorpick) {
+            var color = false;
+            for (var children of self.$children) {
+              if (children.colorpick) {
                 color =  children.colorpick.color.hexString;
               }
             }
@@ -484,37 +484,37 @@ module.exports = {
             var openTag = self._findStringBefore(self.texteditor.value.substring(0, start), '<font');
             var closeTag = self._findStringBefore(self.texteditor.value.substring(0, start), '</font>');
 
-            if(start == -1) {
+            if (start == -1) {
               console.log('unexpected error. No textStart found in: ', self.texteditor.value);
               return callback(false);
             }
             var stop = self.texteditor.value.indexOf(self.textStop);
-            if(stop == -1) {
+            if (stop == -1) {
               console.log('unexpected error. No testStop found in: ', self.texteditor.value);
               return callback(false);
             }
             var wrapWithFont = function(){
               // open new tag, clean all tags inside
               var content = self.texteditor.value.substring(start + self.textStart.length, stop);
-              if(content == '') {
+              if (content == '') {
                 content = button.placeholder;
               } else {
                 content = content.replace(/<\/font>/ig, '');
                 content = content.replace(/<font.*?>/ig, '');
               }
-              if(button.set) {
+              if (button.set) {
                 var openTag = self._findStringBefore(self.texteditor.value.substr(stop), '<font');
                 var closeTag = self._findStringBefore(self.texteditor.value.substr(stop), '</font>');
                 var isCloseNeed = true;
-                if(closeTag != -1 && openTag != -1) {
-                  if(closeTag < openTag) {
+                if (closeTag != -1 && openTag != -1) {
+                  if (closeTag < openTag) {
                     isCloseNeed = false;
                   }
                 }
-                if(closeTag != -1 && openTag == -1) {
+                if (closeTag != -1 && openTag == -1) {
                   isCloseNeed = false;
                 }
-                if(isCloseNeed) {
+                if (isCloseNeed) {
                   content = '<font color="' + color + '">' + content + '</font>';
                 } else {
                   content = '<font color="' + color + '">' + content;
@@ -528,15 +528,15 @@ module.exports = {
 
             }
 
-            if(closeTag > openTag) {
+            if (closeTag > openTag) {
               wrapWithFont();
               return callback(true);
             }
 
-            if(openTag > closeTag) {
+            if (openTag > closeTag) {
               // change selected text starting openTag. wrap again and clean inside
             }
-            if(openTag == closeTag) {
+            if (openTag == closeTag) {
               // no open no closed before
               wrapWithFont();
             }
@@ -546,32 +546,32 @@ module.exports = {
           handlerHtml: function(self, button, callback) {
             var node = self.visualeditor.querySelector('ve-rule');
             var element = self._findParentElement(self.visualeditor, node, /^FONT$/);
-            if(!element) {
-              if(node.firstChild && node.firstChild.nodeName.search(/^FONT/) !== -1) {
+            if (!element) {
+              if (node.firstChild && node.firstChild.nodeName.search(/^FONT/) !== -1) {
                 element = node.firstChild;
               }
             }
-            var color= false;
-            for(var children of self.$children) {
-              if(children.colorpick) {
+            var color = false;
+            for (var children of self.$children) {
+              if (children.colorpick) {
                 color =  children.colorpick.color.hexString;
               }
             }
-            if(element) {
+            if (element) {
               // remove all internal fonts
               var nodes = element.querySelectorAll('FONT');
-              if(nodes.length > 0) {
+              if (nodes.length > 0) {
                 nodes.forEach(function(currentValue, currentIndex, listObj) {
                   var frag = self._extractFrags(currentValue);
                   var parent = currentValue.parentNode;
                   parent.replaceChild(frag, currentValue);
                 });
               }
-              if(button.set == false) {
+              if (button.set == false) {
                 var frag = self._extractFrags(element, 'font');
                 element.parentNode.insertBefore(frag, element);
                 element.parentNode.removeChild(element);
-                if(node.textContent != button.placeholder) {
+                if (node.textContent != button.placeholder) {
                   var frag = self._extractFrags(node);
                   node.parentNode.insertBefore(frag, node);
                 }
@@ -579,7 +579,7 @@ module.exports = {
                 return callback(false);
               }
               element.color =  color;
-              if(node.textContent != '') {
+              if (node.textContent != '') {
                 var frag = self._extractFrags(node);
                 node.parentNode.insertBefore(frag, node);
               }
@@ -589,28 +589,28 @@ module.exports = {
               // if multiple nodes selected
             var lastNodes = [];
             self._getLastItems(node, lastNodes, button.tag);
-            if(lastNodes.length > 1) {
-              if(button.set == false) {
+            if (lastNodes.length > 1) {
+              if (button.set == false) {
                 var nodes = node.querySelectorAll('FONT');
-                if(nodes.length > 0) {
+                if (nodes.length > 0) {
                   nodes.forEach(function(currentValue, currentIndex, listObj) {
                     var frag = self._extractFrags(currentValue);
                     var parent = currentValue.parentNode;
                     parent.replaceChild(frag, currentValue);
                   });
                 }
-                if(node.textContent != '') {
+                if (node.textContent != '') {
                   var frag = self._extractFrags(node);
                   node.parentNode.insertBefore(frag, node);
                 }
                 node.parentNode.removeChild(node);
                 return callback(false);
               }
-              for(var n = 0; n < lastNodes.length; n ++) {
+              for (var n = 0; n < lastNodes.length; n ++) {
                 var child = lastNodes[n];
                 var childElem = self._findParentElement(node, child, /^FONT/);
-                if(childElem == false) {
-                  if(['#text', 'i', 'em'].indexOf(child.nodeName.toLowerCase()) != -1) {
+                if (childElem == false) {
+                  if (['#text', 'i', 'em'].indexOf(child.nodeName.toLowerCase()) != -1) {
                     var wrap = document.createElement('font');
                     wrap.color = color;
                     child.parentNode.insertBefore(wrap, child);
@@ -628,8 +628,8 @@ module.exports = {
               return callback(false);
             }
             // Else. just wrap.
-            if(button.set == false) {
-              if(node.textContent != '') {
+            if (button.set == false) {
+              if (node.textContent != '') {
                 var frag = self._extractFrags(node);
                 node.parentNode.insertBefore(frag, node);
               }
@@ -638,14 +638,14 @@ module.exports = {
             }
             var el = document.createElement('FONT');
             var frag = self._extractFrags(node);
-            if(frag.textContent == '') {
+            if (frag.textContent == '') {
               frag.appendChild(document.createTextNode(button.placeholder));
             }
             el.appendChild(frag);
             el.color =  color;
             //remove inside colors.
             var nodes = el.querySelectorAll('FONT');
-            if(nodes.length > 0) {
+            if (nodes.length > 0) {
               nodes.forEach(function(currentValue, currentIndex, listObj) {
                 var frag = self._extractFrags(currentValue);
                 var parent = currentValue.parentNode;
@@ -713,37 +713,37 @@ module.exports = {
             var openTag = self._findStringBefore(self.texteditor.value.substring(0, start), '<font');
             var closeTag = self._findStringBefore(self.texteditor.value.substring(0, start), '</font>');
 
-            if(start == -1) {
+            if (start == -1) {
               console.log('unexpected error. No textStart found in: ', self.texteditor.value);
               return callback(false);
             }
             var stop = self.texteditor.value.indexOf(self.textStop);
-            if(stop == -1) {
+            if (stop == -1) {
               console.log('unexpected error. No testStop found in: ', self.texteditor.value);
               return callback(false);
             }
             var wrapWithFont = function(){
               // open new tag, clean all tags inside
               var content = self.texteditor.value.substring(start + self.textStart.length, stop);
-              if(content == '') {
+              if (content == '') {
                 content = button.placeholder;
               } else {
                 content = content.replace(/<\/font>/ig, '');
                 content = content.replace(/<font.*?>/ig, '');
               }
-              if(button.set) {
+              if (button.set) {
                 var openTag = self._findStringBefore(self.texteditor.value.substr(stop), '<font');
                 var closeTag = self._findStringBefore(self.texteditor.value.substr(stop), '</font>');
                 var isCloseNeed = true;
-                if(closeTag != -1 && openTag != -1) {
-                  if(closeTag < openTag) {
+                if (closeTag != -1 && openTag != -1) {
+                  if (closeTag < openTag) {
                     isCloseNeed = false;
                   }
                 }
-                if(closeTag != -1 && openTag == -1) {
+                if (closeTag != -1 && openTag == -1) {
                   isCloseNeed = false;
                 }
-                if(isCloseNeed) {
+                if (isCloseNeed) {
                   content = '<font size="' + button.size + '">' + content + '</font>';
                 } else {
                   content = '<font size="' + button.size + '">' + content;
@@ -757,15 +757,15 @@ module.exports = {
 
             }
 
-            if(closeTag > openTag) {
+            if (closeTag > openTag) {
               wrapWithFont();
               return callback(true);
             }
 
-            if(openTag > closeTag) {
+            if (openTag > closeTag) {
               // change selected text starting openTag. wrap again and clean inside
             }
-            if(openTag == closeTag) {
+            if (openTag == closeTag) {
               // no open no closed before
               wrapWithFont();
             }
@@ -775,26 +775,26 @@ module.exports = {
           handlerHtml: function(self, button, callback) {
             var node = self.visualeditor.querySelector('ve-rule');
             var element = self._findParentElement(self.visualeditor, node, /^FONT$/);
-            if(!element) {
-              if(node.firstChild && node.firstChild.nodeName.search(/^FONT/) !== -1) {
+            if (!element) {
+              if (node.firstChild && node.firstChild.nodeName.search(/^FONT/) !== -1) {
                 element = node.firstChild;
               }
             }
-            if(element) {
+            if (element) {
               // remove all internal fonts
               var nodes = element.querySelectorAll('FONT');
-              if(nodes.length > 0) {
+              if (nodes.length > 0) {
                 nodes.forEach(function(currentValue, currentIndex, listObj) {
                   var frag = self._extractFrags(currentValue);
                   var parent = currentValue.parentNode;
                   parent.replaceChild(frag, currentValue);
                 });
               }
-              if(button.set == false) {
+              if (button.set == false) {
                 var frag = self._extractFrags(element, 'font');
                 element.parentNode.insertBefore(frag, element);
                 element.parentNode.removeChild(element);
-                if(node.textContent != button.placeholder) {
+                if (node.textContent != button.placeholder) {
                   var frag = self._extractFrags(node);
                   node.parentNode.insertBefore(frag, node);
                 }
@@ -802,7 +802,7 @@ module.exports = {
                 return callback(false);
               }
               element.size =  button.size;
-              if(node.textContent != '') {
+              if (node.textContent != '') {
                 var frag = self._extractFrags(node);
                 node.parentNode.insertBefore(frag, node);
               }
@@ -812,28 +812,28 @@ module.exports = {
               // if multiple nodes selected
             var lastNodes = [];
             self._getLastItems(node, lastNodes, button.tag);
-            if(lastNodes.length > 1) {
-              if(button.set == false) {
+            if (lastNodes.length > 1) {
+              if (button.set == false) {
                 var nodes = node.querySelectorAll('FONT');
-                if(nodes.length > 0) {
+                if (nodes.length > 0) {
                   nodes.forEach(function(currentValue, currentIndex, listObj) {
                     var frag = self._extractFrags(currentValue);
                     var parent = currentValue.parentNode;
                     parent.replaceChild(frag, currentValue);
                   });
                 }
-                if(node.textContent != '') {
+                if (node.textContent != '') {
                   var frag = self._extractFrags(node);
                   node.parentNode.insertBefore(frag, node);
                 }
                 node.parentNode.removeChild(node);
                 return callback(false);
               }
-              for(var n = 0; n < lastNodes.length; n ++) {
+              for (var n = 0; n < lastNodes.length; n ++) {
                 var child = lastNodes[n];
                 var childElem = self._findParentElement(node, child, /^FONT/);
-                if(childElem == false) {
-                  if(['#text', 'i', 'em'].indexOf(child.nodeName.toLowerCase()) != -1) {
+                if (childElem == false) {
+                  if (['#text', 'i', 'em'].indexOf(child.nodeName.toLowerCase()) != -1) {
                     var wrap = document.createElement('font');
                     wrap.size = button.size;
                     child.parentNode.insertBefore(wrap, child);
@@ -851,8 +851,8 @@ module.exports = {
               return callback(false);
             }
             // Else. just wrap.
-            if(button.set == false) {
-              if(node.textContent != '') {
+            if (button.set == false) {
+              if (node.textContent != '') {
                 var frag = self._extractFrags(node);
                 node.parentNode.insertBefore(frag, node);
               }
@@ -861,14 +861,14 @@ module.exports = {
             }
             var el = document.createElement('FONT');
             var frag = self._extractFrags(node);
-            if(frag.textContent == '') {
+            if (frag.textContent == '') {
               frag.appendChild(document.createTextNode(button.placeholder));
             }
             el.appendChild(frag);
             el.size =  button.size;
             //remove inside colors.
             var nodes = el.querySelectorAll('FONT');
-            if(nodes.length > 0) {
+            if (nodes.length > 0) {
               nodes.forEach(function(currentValue, currentIndex, listObj) {
                 var frag = self._extractFrags(currentValue);
                 var parent = currentValue.parentNode;
@@ -881,20 +881,20 @@ module.exports = {
           }
         }
       }
-      if(toolbar && toolbar.length > 0) {
-        if(toolbar == 'default'){
+      if (toolbar && toolbar.length > 0) {
+        if (toolbar == 'default'){
           // generate default toolbar here
           return this.processToolbar(buttonNames);
         }
-        if(toolbar.length > 0){
+        if (toolbar.length > 0){
           var newToolbar = [];
-          for(var button of toolbar){
-            if(button && button.type) {
+          for (var button of toolbar){
+            if (button && button.type) {
               newToolbar.push(button);
             }
-            if(buttonNames.indexOf(button) != -1) {
+            if (buttonNames.indexOf(button) != -1) {
               // add predefined button.
-              if(buttonDefenitions[button]) {
+              if (buttonDefenitions[button]) {
                 newToolbar.push(buttonDefenitions[button]);
               }
             }
@@ -905,7 +905,7 @@ module.exports = {
       return []
     },
     switchMode: function(){
-      if(this.editormode == 'html') {
+      if (this.editormode == 'html') {
         this.editormode = 'markdown';
       } else {
         this.editormode = 'html';
@@ -914,7 +914,7 @@ module.exports = {
       //vm.datastate['visualeditor'] = this.editormode;
       var self = this;
       setTimeout(function(){
-        if(self.editormode == 'html') {
+        if (self.editormode == 'html') {
           self.visualeditor.focus();
         } else {
           self.texteditor.focus();
@@ -924,9 +924,9 @@ module.exports = {
     buttonByGroup: function(group){
       var buttons = [];
       var types = ['inline', 'input', 'wrap', 'dropdown'];
-      if(this.config.toolbar) {
-        for(var button of this.toolbar) {
-          if(button.group == group && button.tag && button.tag != '') {
+      if (this.config.toolbar) {
+        for (var button of this.toolbar) {
+          if (button.group == group && button.tag && button.tag != '') {
             buttons.push(button);
           }
         }
@@ -950,7 +950,7 @@ module.exports = {
       this._joinTags(this.visualeditor);
       var nodes = this.visualeditor.querySelectorAll('span');
       var self = this;
-      if(nodes.length > 0) {
+      if (nodes.length > 0) {
         nodes.forEach(function(currentValue, currentIndex, listObj) {
           var frag = self._extractFrags(currentValue);
           currentValue.parentNode.insertBefore(frag, currentValue);
@@ -958,17 +958,17 @@ module.exports = {
         });
       }
       var md = this.td.turndown(this.visualeditor.innerHTML);
-      this.$emit('input',md);
+      this.$emit('input', md);
     },
     _findStringBefore: function(string, findme) {
       var pos = string.indexOf(findme);
-      if(pos == -1) {
+      if (pos == -1) {
         return -1;
       }
       var lastpos = pos;
-      while(true) {
+      while (true) {
         pos = string.indexOf(findme, pos + findme.length);
-        if(pos == -1) {
+        if (pos == -1) {
           return lastpos;
         }
         lastpos = pos;
@@ -978,18 +978,18 @@ module.exports = {
       return string.indexOf(findme);
     },
     _cleanTags: function(node){
-      for(var n = 0; n < node.childNodes.length; n ++) {
+      for (var n = 0; n < node.childNodes.length; n ++) {
         var child = node.childNodes[n];
-        if( child.nodeType === 8
+        if ( child.nodeType === 8
           || (child.nodeType === 3
-              && (child.nodeValue == ""||child.nodeValue == "\n"))) {
+              && (child.nodeValue == "" || child.nodeValue == "\n"))) {
           child.parentNode.removeChild(child);
           n --;
         }
-        else if(child.nodeType === 1 && ['br', 'img'].indexOf(child.nodeName.toLowerCase()) == -1) {
-          if(child.childNodes.length > 0) {
+        else if (child.nodeType === 1 && ['br', 'img'].indexOf(child.nodeName.toLowerCase()) == -1) {
+          if (child.childNodes.length > 0) {
             this._cleanTags(child);
-            if(child.childNodes.length == 0) {
+            if (child.childNodes.length == 0) {
               node.removeChild(child);
               n --;
             }
@@ -1000,11 +1000,11 @@ module.exports = {
         }
       }
     },
-    _extractFrags: function(element,name){
+    _extractFrags: function(element, name){
       var frag = document.createDocumentFragment();
-      while(element.childNodes.length > 0){
+      while (element.childNodes.length > 0){
         var child = element.childNodes[0];
-        if(child.nodeName.toLowerCase() == name) {
+        if (child.nodeName.toLowerCase() == name) {
           var childContent = this._extractFrags(child, name);
           element.removeChild(child);
           child = childContent;
@@ -1039,30 +1039,30 @@ module.exports = {
       var n = 0;
       while (n < node.childNodes.length){
         var child = node.childNodes[n];
-        if(child.childNodes.length > 1) {
+        if (child.childNodes.length > 1) {
           this._joinTags(child);
         }
-        if( node.childNodes.length > n + 1) {
+        if ( node.childNodes.length > n + 1) {
           var childNext = node.childNodes[n + 1];
-          if(["b", "i", "blockquote", "h1", "h2", "h3", "font"].indexOf(child.nodeName.toLowerCase()) == -1) {
+          if (["b", "i", "blockquote", "h1", "h2", "h3", "font"].indexOf(child.nodeName.toLowerCase()) == -1) {
             n = n + 1;
             continue;
           }
-          if(child.nodeName == 'font' ) {
-            if(childNext.nodeName != 'font') {
+          if (child.nodeName == 'font' ) {
+            if (childNext.nodeName != 'font') {
               n = n + 1;
               continue;
             }
-            if(child.color != childNext.color) {
+            if (child.color != childNext.color) {
               n = n + 1;
               continue;
             }
-            if(child.size != childNext.size) {
+            if (child.size != childNext.size) {
               n = n + 1;
               continue;
             }
           }
-          if(child.nodeName == childNext.nodeName) {
+          if (child.nodeName == childNext.nodeName) {
             var frag = this._extractFrags(childNext);
             child.appendChild(frag);
             childNext.parentNode.removeChild(childNext);
@@ -1075,49 +1075,49 @@ module.exports = {
       }
     },
     _findParentElement: function(root, element, pattern) {
-        if(!root.contains(element)){
+        if (!root.contains(element)){
           return false;
         }
-        if(element.nodeName.search(pattern) !== -1) {
+        if (element.nodeName.search(pattern) !== -1) {
           return element;
         }
         return this._findParentElement(root, element.parentElement, pattern);
     },
     _getLastItems: function(node, lastItems, tag) {
-      if(node.childNodes.length == 0 ) {
+      if (node.childNodes.length == 0 ) {
         return false;
       }
       var exclude = ["i", "span"];
-      if(tag) {
+      if (tag) {
         exclude.push(tag);
       }
-      if(exclude.indexOf(node.nodeName.toLowerCase()) != -1) {
+      if (exclude.indexOf(node.nodeName.toLowerCase()) != -1) {
         return false;
       }
-      for(var n = 0; n < node.childNodes.length; n ++) {
+      for (var n = 0; n < node.childNodes.length; n ++) {
         var child = node.childNodes[n];
-        if(["br"].indexOf(child.nodeName.toLowerCase()) != -1) {
+        if (["br"].indexOf(child.nodeName.toLowerCase()) != -1) {
           continue;
         }
         var isLatest = true;
 
-        if(child.childNodes.length > 0) {
-          for(var i = 0; i < child.childNodes.length; i ++) {
+        if (child.childNodes.length > 0) {
+          for (var i = 0; i < child.childNodes.length; i ++) {
             var n1 = child.childNodes[i];
-            if(n1.nodeType == 1) {
+            if (n1.nodeType == 1) {
               isLatest = false;
               break;
             }
           }
         }
-        if(isLatest) {
-          if(child.nodeType == 3 && child.textContent == "\n") {
+        if (isLatest) {
+          if (child.nodeType == 3 && child.textContent == "\n") {
             continue;
           }
           lastItems.push(child);
         } else {
           var ret = this._getLastItems(child, lastItems, tag);
-          if(ret === false) {
+          if (ret === false) {
             lastItems.push(child);
           }
         }
@@ -1125,7 +1125,7 @@ module.exports = {
     },
     process_mark: function(){
       var self = this;
-      if(this.editormode == 'html') {
+      if (this.editormode == 'html') {
         this.visualeditor.focus();
         if (window.getSelection) {
           var sel = window.getSelection();
@@ -1133,7 +1133,7 @@ module.exports = {
             var range = sel.getRangeAt(0);
             var selectionContent = range.cloneContents();
             var root = document.createElement('ve-rule');
-            if(selectionContent.textContent != '') {
+            if (selectionContent.textContent != '') {
               root.appendChild(this._extractFrags(selectionContent));
             }
             range.deleteContents();
@@ -1147,8 +1147,8 @@ module.exports = {
         var length = this.texteditor.selectionEnd - this.texteditor.selectionStart;
         var content = this.texteditor.value.substr(start, length);
 
-        if(content.indexOf('\n') != -1 ) {
-          if(button.type == 'wrap' && !button.perline ) {
+        if (content.indexOf('\n') != -1 ) {
+          if (button.type == 'wrap' && !button.perline ) {
             this.texteditor.value = this.texteditor.value.substr(0, start)
             + this.textStart
             + content
@@ -1157,8 +1157,8 @@ module.exports = {
           } else {
             var newContent = '';
             var lines = content.split("\n");
-            for(var i in lines ) {
-              if(lines[i] != "") {
+            for (var i in lines ) {
+              if (lines[i] != "") {
                 newContent = newContent + this.textStart + lines[i] + this.textStop;
               }
             }
@@ -1177,20 +1177,20 @@ module.exports = {
     },
     process_replace: function(button) {
       var self = this;
-      if(this.editormode == 'html') {
+      if (this.editormode == 'html') {
         this.visualeditor.focus();
         var functionName = 'processHtml' + button.type;
         var handlerHtml = function(element) {
-          if(element) {
+          if (element) {
             range.selectNode(element);
             sel.addRange(range);
           }
           self.emitHTMLInput();
         }
-        if(button.handlerHtml) {
+        if (button.handlerHtml) {
           return button.handlerHtml(self, button, handlerHtml);
         }
-        if(self[functionName]) {
+        if (self[functionName]) {
           self[functionName](button, handlerHtml);
         } else {
           handlerHtml();
@@ -1200,35 +1200,35 @@ module.exports = {
         var functionName = 'processText' + button.type;
         var handlerText = function(){
           var start = self.texteditor.value.indexOf(self.textStart);
-          if(start != -1 ) {
+          if (start != -1 ) {
             self.texteditor.value = self.texteditor.value.substring(0, start) + self.texteditor.value.substring(start + self.textStart.length);
           }
           var end = self.texteditor.value.indexOf(self.textStop);
-          if(end != -1 ) {
+          if (end != -1 ) {
             self.texteditor.value = self.texteditor.value.substring(0, end) + self.texteditor.value.substring(end + self.textStop.length);
           }
           self.texteditor.selectionStart = start;
           self.texteditor.selectionEnd = end;
-          if(self.texteditor.value.indexOf(self.textStart) != -1) {
-            if(button.handlerText) {
+          if (self.texteditor.value.indexOf(self.textStart) != -1) {
+            if (button.handlerText) {
               return button.handlerText(self, button, handlerText);
             }
-            if(self[functionName]) {
+            if (self[functionName]) {
               self[functionName](button, handlerText);
             } else {
               handlerText();
             }
           }
-          if(button.reset) {
+          if (button.reset) {
             button.reset();
           }
           var event = new Event('input');
           self.texteditor.dispatchEvent(event);
         }
-        if(button.handlerText) {
+        if (button.handlerText) {
           return button.handlerText(self, button, handlerText);
         }
-        if(this[functionName]) {
+        if (this[functionName]) {
           this[functionName](button, handlerText);
         } else {
           handlerText();
@@ -1237,7 +1237,7 @@ module.exports = {
     },
     process_click: function(button) {
       var self = this;
-      if(this.editormode == 'html') {
+      if (this.editormode == 'html') {
         this.visualeditor.focus();
         if (window.getSelection) {
           var sel = window.getSelection();
@@ -1245,7 +1245,7 @@ module.exports = {
             var range = sel.getRangeAt(0);
             var selectionContent = range.cloneContents();
             var root = document.createElement('ve-rule');
-            if(selectionContent.textContent != '') {
+            if (selectionContent.textContent != '') {
               root.appendChild(this._extractFrags(selectionContent));
             }
             range.deleteContents();
@@ -1253,16 +1253,16 @@ module.exports = {
             sel.removeAllRanges();
             var functionName = 'processHtml' + button.type;
             var handlerHtml = function(element) {
-              if(element) {
+              if (element) {
                 range.selectNode(element);
                 sel.addRange(range);
               }
               self.emitHTMLInput();
             }
-            if(button.handlerHtml) {
+            if (button.handlerHtml) {
               return button.handlerHtml(self, button, handlerHtml);
             }
-            if(self[functionName]) {
+            if (self[functionName]) {
               self[functionName](button, handlerHtml);
             } else {
               handlerHtml();
@@ -1275,8 +1275,8 @@ module.exports = {
         var length = this.texteditor.selectionEnd - this.texteditor.selectionStart;
         var content = this.texteditor.value.substr(start, length);
 
-        if(content.indexOf('\n') != -1 ) {
-          if(button.type == 'wrap' && !button.perline ) {
+        if (content.indexOf('\n') != -1 ) {
+          if (button.type == 'wrap' && !button.perline ) {
             this.texteditor.value = this.texteditor.value.substr(0, start)
             + this.textStart
             + content
@@ -1285,8 +1285,8 @@ module.exports = {
           } else {
             var newContent = '';
             var lines = content.split("\n");
-            for(var i in lines ) {
-              if(lines[i] != "") {
+            for (var i in lines ) {
+              if (lines[i] != "") {
                 newContent = newContent + this.textStart + lines[i] + this.textStop;
               }
             }
@@ -1304,35 +1304,35 @@ module.exports = {
         var functionName = 'processText' + button.type;
         var handlerText = function(){
           var start = self.texteditor.value.indexOf(self.textStart);
-          if(start != -1 ) {
+          if (start != -1 ) {
             self.texteditor.value = self.texteditor.value.substring(0, start) + self.texteditor.value.substring(start + self.textStart.length);
           }
           var end = self.texteditor.value.indexOf(self.textStop);
-          if(end != -1 ) {
+          if (end != -1 ) {
             self.texteditor.value = self.texteditor.value.substring(0, end) + self.texteditor.value.substring(end + self.textStop.length);
           }
           self.texteditor.selectionStart = start;
           self.texteditor.selectionEnd = end;
-          if(self.texteditor.value.indexOf(self.textStart) != -1) {
-            if(button.handlerText) {
+          if (self.texteditor.value.indexOf(self.textStart) != -1) {
+            if (button.handlerText) {
               return button.handlerText(self, button, handlerText);
             }
-            if(self[functionName]) {
+            if (self[functionName]) {
               self[functionName](button, handlerText);
             } else {
               handlerText();
             }
           }
-          if(button.reset) {
+          if (button.reset) {
             button.reset();
           }
           var event = new Event('input');
           self.texteditor.dispatchEvent(event);
         }
-        if(button.handlerText) {
+        if (button.handlerText) {
           return button.handlerText(self, button, handlerText);
         }
-        if(this[functionName]) {
+        if (this[functionName]) {
           this[functionName](button, handlerText);
         } else {
           handlerText();
@@ -1347,7 +1347,7 @@ module.exports = {
       // clean all possible empty tags first.
       this._cleanTags(node);
       var element = this._findParentElement(this.visualeditor, node, pattern);
-      if(element) {
+      if (element) {
         var split = this._splitNode(element, node);
         var parent = split.parentNode;
         var frag = this._extractFrags(node, button.tag)
@@ -1355,7 +1355,7 @@ module.exports = {
         return callback(split.parentNode);
       }
       // if only one child and eq tag
-      if(node.childNodes.length == 1  && node.firstChild.nodeName.toLowerCase() == button.tag) {
+      if (node.childNodes.length == 1  && node.firstChild.nodeName.toLowerCase() == button.tag) {
         var frag = this._extractFrags(node, tag);
         var parent = node.parentNode;
         parent.replaceChild(frag, node);
@@ -1364,12 +1364,12 @@ module.exports = {
       // if multiple nodes selected
       var lastNodes = [];
       this._getLastItems(node, lastNodes, button.tag);
-      if(lastNodes.length > 1) {
-        for(var n = 0; n < lastNodes.length; n ++) {
+      if (lastNodes.length > 1) {
+        for (var n = 0; n < lastNodes.length; n ++) {
           var child = lastNodes[n];
           var childElem = this._findParentElement(node, child, pattern);
-          if(childElem == false) {
-            if(['#text', 'i', 'em'].indexOf(child.nodeName.toLowerCase()) != -1) {
+          if (childElem == false) {
+            if (['#text', 'i', 'em'].indexOf(child.nodeName.toLowerCase()) != -1) {
               var wrap = document.createElement(button.tag);
               child.parentNode.insertBefore(wrap, child);
               wrap.appendChild(child);
@@ -1392,14 +1392,14 @@ module.exports = {
       wrap.appendChild(this._extractFrags(node, button.tag));
       var nodes = wrap.querySelectorAll(button.tag);
       var self = this;
-      if(nodes.length > 0) {
+      if (nodes.length > 0) {
         nodes.forEach(function(currentValue, currentIndex, listObj) {
           var frag = self._extractFrags(currentValue);
           var parent = currentValue.parentNode;
           parent.replaceChild(frag, currentValue);
         });
       } else {
-        if(wrap.textContent == '' && button.placeholder ) {
+        if (wrap.textContent == '' && button.placeholder ) {
           wrap.appendChild(document.createTextNode(button.placeholder));
         }
       }
@@ -1413,11 +1413,11 @@ module.exports = {
       var pattern = new RegExp('^' + button.tag.toUpperCase() + '$');
       // clean all possible empty tags first.
       this._cleanTags(node);
-      if(!button.prompt) {
+      if (!button.prompt) {
         button.prompt = 'Please input';
       }
       var element = this._findParentElement(this.visualeditor, node, pattern);
-      if(element) {
+      if (element) {
         var split = this._splitNode(element, node);
         var parent = split.parentNode;
         var frag = this._extractFrags(node, button.tag)
@@ -1425,17 +1425,17 @@ module.exports = {
         return callback(split.parentNode);
       }
       var input = prompt(button.prompt, 'http://');
-      if(input === null) {
+      if (input === null) {
         var frag = this._extractFrags(node);
         var parent = node.parentNode
         parent.replaceChild(frag, node);
         return callback(false);
       }
       var element = document.createElement(button.tag);
-      if(button.selection) {
+      if (button.selection) {
         element[button.selection] = node.textContent.replace('\n', '');
       }
-      if(button.input) {
+      if (button.input) {
         element[button.input] = input;
       }
       node.parentNode.insertBefore(element, node);
@@ -1446,7 +1446,7 @@ module.exports = {
       var node = this.visualeditor.querySelector('ve-rule');
       var self = this;
       var root = document.createElement('span');
-      if(button.click) {
+      if (button.click) {
         node.innerHTML = button.text;
       }
       var frag = this._extractFrags(node);
@@ -1458,7 +1458,7 @@ module.exports = {
       var node = this.visualeditor.querySelector('ve-rule');
       var self = this;
       var pattern = new RegExp('^' + button.tag.toUpperCase() + '$');
-      if(node.innerHTML == '') {
+      if (node.innerHTML == '') {
         node.innerHTML = button.placeholder;
       }
 
@@ -1467,10 +1467,10 @@ module.exports = {
 
       var root = document.createElement(button.tag);
       var element = this._findParentElement(this.visualeditor, node, /^H|^B$|^EM$/);
-      if(element == false) {
-        if(button.item) {
+      if (element == false) {
+        if (button.item) {
           var item = document.createElement(button.item);
-          if(button.item == 'code') {
+          if (button.item == 'code') {
             item.innerHTML = node.textContent;
           } else {
             item.innerHTML = node.innerHTML;
@@ -1485,7 +1485,7 @@ module.exports = {
         var split = this._splitNode(element, node);
         var parent = split.parentNode;
         var frag = this._extractFrags(node, button.tag);
-        if(button.item) {
+        if (button.item) {
           var item = document.createElement(button.item);
           item.appendChild(frag);
           root.appendChild(item);
@@ -1499,17 +1499,17 @@ module.exports = {
     },
     processTextautocomplete: function(button, callback) {
       var start = this.texteditor.value.indexOf(this.textStart);
-      if(start == -1) {
+      if (start == -1) {
         console.log('unexpected error. No textStart found in: ', this.texteditor.value);
         return callback(false);
       }
       var stop = this.texteditor.value.indexOf(this.textStop);
-      if(stop == -1) {
+      if (stop == -1) {
         console.log('unexpected error. No testStop found in: ', this.texteditor.value);
         return callback(false);
       }
       var content = this.texteditor.value.substring(start + this.textStart.length, stop);
-      if(button.click) {
+      if (button.click) {
         content = button.text;
       }
       this.texteditor.value = this.texteditor.value.substring(0, start)
@@ -1520,31 +1520,31 @@ module.exports = {
       return callback(true);
     },
     processTextwrap: function(button, callback) {
-      if(!button.markdown) {
+      if (!button.markdown) {
         console.log('unexpected error. No markdown property found in: ', button);
         return callback(false);
       }
       var start = this.texteditor.value.indexOf(this.textStart);
-      if(start == -1) {
+      if (start == -1) {
         console.log('unexpected error. No textStart found in: ', this.texteditor.value);
         return callback(false);
       }
       var stop = this.texteditor.value.indexOf(this.textStop);
-      if(stop == -1) {
+      if (stop == -1) {
         console.log('unexpected error. No testStop found in: ', this.texteditor.value);
         return callback(false);
       }
       var content = this.texteditor.value.substring(start + this.textStart.length, stop);
-      if(content == '') {
+      if (content == '') {
         content = button.placeholder;
       }
       var md_selection = button.markdown.indexOf('selection');
-      if(md_selection == -1) {
+      if (md_selection == -1) {
         console.log('unexpected error. No "selection" found in markdown for ', button);
         return callback(false);
       }
       var md_before;
-      if(button.before) {
+      if (button.before) {
         md_before = button.before();
       } else {
         md_before = button.markdown.substring(0, md_selection);
@@ -1563,26 +1563,26 @@ module.exports = {
       return callback(true);
     },
     processTextinline: function(button, callback) {
-      if(!button.markdown) {
+      if (!button.markdown) {
         console.log('unexpected error. No markdown property found in: ', button);
         return callback(false);
       }
       var start = this.texteditor.value.indexOf(this.textStart);
-      if(start == -1) {
+      if (start == -1) {
         console.log('unexpected error. No textStart found in: ', this.texteditor.value);
         return callback(false);
       }
       var stop = this.texteditor.value.indexOf(this.textStop);
-      if(stop == -1) {
+      if (stop == -1) {
         console.log('unexpected error. No testStop found in: ', this.texteditor.value);
         return callback(false);
       }
       var content = this.texteditor.value.substring(start + this.textStart.length, stop);
-      if(content == '') {
+      if (content == '') {
         content = button.placeholder;
       }
       var md_selection = button.markdown.indexOf('selection');
-      if(md_selection == -1) {
+      if (md_selection == -1) {
         console.log('unexpected error. No "selection" found in markdown for ', button);
         return callback(false);
       }
@@ -1590,7 +1590,7 @@ module.exports = {
       var md_after = button.markdown.substring(md_selection + 'selection'.length);
       var txt_before = this.texteditor.value.substr(start - md_before.length, md_before.length);
       var txt_after = this.texteditor.value.substr(stop + this.textStop.length, md_after.length);
-      if( txt_before == md_before && txt_after == md_after) {
+      if ( txt_before == md_before && txt_after == md_after) {
           this.texteditor.value = this.texteditor.value.substring(0, start - md_before.length )
             + this.texteditor.value.substring(start, stop + this.textStop.length)
             + this.texteditor.value.substring(stop + this.textStop.length + md_after.length);
@@ -1606,40 +1606,40 @@ module.exports = {
       return callback(true);
     },
     processTextinput: function(button, callback) {
-      if(!button.markdown) {
+      if (!button.markdown) {
         console.log('unexpected error. No markdown property found in: ', button);
         return callback(false);
       }
       var start = this.texteditor.value.indexOf(this.textStart);
-      if(start == -1) {
+      if (start == -1) {
         console.log('unexpected error. No textStart found in: ', this.texteditor.value);
         return callback(false);
       }
       var stop = this.texteditor.value.indexOf(this.textStop);
-      if(stop == -1) {
+      if (stop == -1) {
         console.log('unexpected error. No testStop found in: ', this.texteditor.value);
         return callback(false);
       }
       var content = this.texteditor.value.substring(start + this.textStart.length, stop);
-      if(content == '') {
+      if (content == '') {
         content = button.placeholder;
       }
-      if(!button.prompt) {
+      if (!button.prompt) {
         button.prompt = 'Please input';
       }
       var md_selection = button.markdown.indexOf('selection');
-      if(md_selection == -1) {
+      if (md_selection == -1) {
         console.log('unexpected error. No "selection" found in markdown for ', button);
         return callback(false);
       }
       var md_input = button.markdown.indexOf('input');
-      if(md_input == -1) {
+      if (md_input == -1) {
         console.log('unexpected error. No "input" found in markdown for ', button);
         return callback(false);
       }
 
       var input = prompt(button.prompt, 'http://');
-      if(input === null) {
+      if (input === null) {
         return callback(true);
       }
 

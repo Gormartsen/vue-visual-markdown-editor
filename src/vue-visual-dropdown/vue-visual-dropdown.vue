@@ -9,7 +9,7 @@ module.exports = {
   props: ['button'],
   mounted: function(){
     var self = this;
-    if(self.button.init) {
+    if (self.button.init) {
       self.button.init(self);
     }
   },
@@ -17,10 +17,10 @@ module.exports = {
     select: function(event, line) {
       event.preventDefault();
       event.stopPropagation();
-      if(!line.handlerText && this.button.handlerText) {
+      if (!line.handlerText && this.button.handlerText) {
         line.handlerText = this.button.handlerText;
       }
-      if(!line.handlerHtml && this.button.handlerHtml) {
+      if (!line.handlerHtml && this.button.handlerHtml) {
         line.handlerHtml = this.button.handlerHtml;
       }
       this.isopen = false;

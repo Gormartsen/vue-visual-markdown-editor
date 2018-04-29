@@ -25,7 +25,18 @@ colorpicker: {
   sliderHeight: 1,
   color: "#f00"
 },
-toolbar: ["header", "bold", "italic", "link", "img", "list", "numlist",  "code", "quote", "color", 'size', {
+toolbar: [
+  "header",
+  "bold",
+  "italic",
+  "link",
+  "img",
+  "list",
+  "numlist",
+  "code",
+  "quote",
+  "color",
+  'size', {
   group: '5',
   type: 'autocomplete',
   icon: 'fa-at',
@@ -34,13 +45,13 @@ toolbar: ["header", "bold", "italic", "link", "img", "list", "numlist",  "code",
     return '<div class="assignee">' + item.login + '</div>';
   },
   render: function(item, mode) {
-    var value ='';
-    if(item.login) {
+    var value = '';
+    if (item.login) {
       value = item.login;
     } else {
       value = item;
     }
-    if(mode == 'html') {
+    if (mode == 'html') {
       return '<a href="/' + value + '" class="mention">@' + value + '</a> ';
     }
     return "@" + value + " ";
@@ -59,7 +70,7 @@ toolbar: ["header", "bold", "italic", "link", "img", "list", "numlist",  "code",
     debugLog('search mention', searchRequest);
     ws.search('owners', searchRequest, function(err, response, headers){
       debugLog('mentionStrategy:' + input, err, response, headers);
-      if(err) {
+      if (err) {
         return callback([]);
       }
       callback(response);
@@ -75,13 +86,13 @@ toolbar: ["header", "bold", "italic", "link", "img", "list", "numlist",  "code",
     return '<div class="issue">#' + issue.number + ' ' + issue.title.substr(0, 40) + '</div>';
   },
   render: function(item, mode) {
-    var value ='';
-    if(item.number) {
+    var value = '';
+    if (item.number) {
       value = item.number;
     } else {
       value = item;
     }
-    if(mode == 'html') {
+    if (mode == 'html') {
       return '<a href="' + window.repoUrl + '#' + value + '" class="issue_link">#' + value + '</a> ';
     }
     return "#" + value + " ";
@@ -107,7 +118,7 @@ toolbar: ["header", "bold", "italic", "link", "img", "list", "numlist",  "code",
     var issuesURL = 'repos' + window.repoUrl + '/issues';
     ws.search(issuesURL, searchRequest, function(err, response, headers){
       debugLog('issueStrategy:' + input, err, response, headers);
-      if(err) {
+      if (err) {
         return callback([]);
       }
       callback(response);
@@ -123,13 +134,13 @@ toolbar: ["header", "bold", "italic", "link", "img", "list", "numlist",  "code",
     return '<div class="reply">#' + template.name + '</div>';
   },
   render: function(item, mode) {
-    var value ='';
-    if(item.template) {
+    var value = '';
+    if (item.template) {
       value = item.template;
     } else {
       value = '';
     }
-    if(mode == 'html') {
+    if (mode == 'html') {
       return mdGlobal.render(item.template);
     }
     return item.template;
@@ -154,7 +165,7 @@ toolbar: ["header", "bold", "italic", "link", "img", "list", "numlist",  "code",
     debugLog('search issue', searchRequest);
     ws.search('templates', searchRequest, function(err, response, headers){
       debugLog('templates:' + input, err, response, headers);
-      if(err) {
+      if (err) {
         return callback([]);
       }
       callback(response);

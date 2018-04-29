@@ -26,9 +26,9 @@ module.exports = {
   },
   props: ['icon'],
   created: function(){
-    var icon = _VVME_preLoaderdIcons[this.icon];
-    if(icon) {
-      if(icon.icon) {
+    var icon = global._VVMEPreLoaderdIcons[this.icon];
+    if (icon) {
+      if (icon.icon) {
         this.svgData = icon.icon;
         this.isSvg = true;
       }

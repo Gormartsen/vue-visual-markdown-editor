@@ -13,12 +13,12 @@ module.exports = {
   props: ['button', 'mode'],
   mounted: function(){
     var self = this;
-    if(self.button.init) {
+    if (self.button.init) {
       self.button.init(self);
     }
     this.inputElement = this.$el.querySelector('.autocomplete');
     this.inputElement.onkeyup = function(event) {
-      if(event.keyCode === 13){
+      if (event.keyCode === 13){
         return self.emitClicked(true);
       }
       if (event.keyCode === 27) {
@@ -26,7 +26,7 @@ module.exports = {
       }
       self.button.source(self.inputElement.value, function(newArray){
         self.items.splice(0, self.items.length);
-        for(var i in newArray) {
+        for (var i in newArray) {
           self.items.push(newArray[i]);
         }
       });
@@ -41,7 +41,7 @@ module.exports = {
     switchOpen: function(){
       this.isopen = !this.isopen;
       var self = this;
-      if(this.isopen) {
+      if (this.isopen) {
         this.$emit('marktext');
         setTimeout(function(){
           self.inputElement.focus();
@@ -51,14 +51,14 @@ module.exports = {
       }
     },
     preview: function(item){
-      if(this.button.preview) {
+      if (this.button.preview) {
         return this.button.preview(item);
       }
       return item;
     },
     emitClicked: function(clickType){
       var text = this.autocomplete;
-      if(this.button.render) {
+      if (this.button.render) {
         text = this.button.render(text, this.mode);
       }
       var button = {
@@ -74,7 +74,7 @@ module.exports = {
       event.preventDefault();
       event.stopPropagation();
       var text = this.autocomplete;
-      if(this.button.render) {
+      if (this.button.render) {
         text = this.button.render(line, this.mode);
       }
       var button = {

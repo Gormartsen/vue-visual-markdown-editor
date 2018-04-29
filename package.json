@@ -7,6 +7,7 @@
     "build-app": "node dev/build.js",
     "copy-index": "node dev/copy-index.js",
     "build": "npm run build-app && npm run copy-index",
+    "cs": "node_modules/.bin/eslint --fix --ext js,vue src dev index.js",
     "start": "node dev/live-server.js"
   },
   "repository": {
@@ -40,6 +41,7 @@
     "browserify": "^16.2.0",
     "envify": "^4.1.0",
     "eslint": "^4.19.1",
+    "eslint-plugin-vue": "^4.5.0",
     "fs-extra": "^5.0.0",
     "live-server": "^1.2.0",
     "node-sass": "^4.9.0",
