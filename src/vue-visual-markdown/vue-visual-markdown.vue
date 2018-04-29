@@ -255,7 +255,7 @@ module.exports = {
         'italic': {
           group: '1',
           type: 'inline',
-          icon: 'fa-italic',
+          icon: 'italic',
           tag: 'em',
           markdown: '*selection*',
           placeholder: 'italic text'
@@ -263,7 +263,7 @@ module.exports = {
         'link': {
           group: '2',
           type: 'input',
-          icon: 'fa-link',
+          icon: 'link',
           tag: 'a',
           markdown: '[selection](input)',
           placeholder: 'Link',
@@ -274,7 +274,7 @@ module.exports = {
         'img': {
           group: '2',
           type: 'input',
-          icon: 'fa-picture-o',
+          icon: 'image',
           tag: 'img',
           markdown: '![selection](input)',
           placeholder: 'Image',
@@ -285,7 +285,7 @@ module.exports = {
         'quote': {
           group: '3',
           type: 'wrap',
-          icon: 'fa-quote-left',
+          icon: 'quote-left',
           tag: 'blockquote',
           markdown: '> selection\n',
           perline: true,
@@ -294,7 +294,7 @@ module.exports = {
         'code': {
           group: '3',
           type: 'wrap',
-          icon: 'fa-code',
+          icon: 'code',
           tag: 'pre',
           item: 'code',
           markdown: '```\nselection\n```',
@@ -304,7 +304,7 @@ module.exports = {
         'list': {
           group: '3',
           type: 'wrap',
-          icon: 'fa-list',
+          icon: 'list',
           tag: 'ul',
           item: 'li',
           markdown: ' - selection\n',
@@ -314,7 +314,7 @@ module.exports = {
         'numlist': {
           group: '3',
           type: 'wrap',
-          icon: 'fa-list-ol',
+          icon: 'list-ol',
           tag: 'ol',
           item: 'li',
           before: function(){

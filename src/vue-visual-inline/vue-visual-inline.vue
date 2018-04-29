@@ -3,7 +3,7 @@
 module.exports = {
   props: ['button'],
   components: {
-    'font-awesome-icon': require('@fortawesome/vue-fontawesome')['default']
+    'font-awesome-icon': global.FontAwesomeComponent
   }
 }
 </script>

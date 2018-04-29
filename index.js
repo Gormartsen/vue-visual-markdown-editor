@@ -5,7 +5,15 @@ var VisualMarkdown = require('./src/vue-visual-markdown/vue-visual-markdown.vue'
 global.fontawesome = require('@fortawesome/fontawesome');
 fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faBold.js'));
 fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faHeading.js'));
+fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faItalic.js'));
+fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faLink.js'));
+fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faImage.js'));
+fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faQuoteLeft.js'));
+fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faCode.js'));
+fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faList.js'));
+fontawesome.library.add(require('@fortawesome/fontawesome-free-solid/faListOl.js'));
 
+global.FontAwesomeComponent = require('@fortawesome/vue-fontawesome')['default'];
 
 VisualMarkdown.components = {
   'vue-visual-autocomplete': require('./src/vue-visual-autocomplete/vue-visual-autocomplete.vue'),

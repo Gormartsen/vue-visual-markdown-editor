@@ -3,13 +3,16 @@
 <script>
 module.exports = {
   data: function(){
-      return {
-        isopen: false,
-        autocomplete: '',
-        inputElement: false,
-        items: [],
-      }
-    },
+    return {
+      isopen: false,
+      autocomplete: '',
+      inputElement: false,
+      items: [],
+    }
+  },
+  components: {
+    'font-awesome-icon': global.FontAwesomeComponent
+  },
   props: ['button', 'mode'],
   mounted: function(){
     var self = this;

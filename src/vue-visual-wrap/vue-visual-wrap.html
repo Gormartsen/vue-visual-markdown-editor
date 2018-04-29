@@ -1,5 +1,5 @@
 <button
   class="btn btn-default"
   v-on:click="$emit('clicked', button)">
-  <span :class="['fa', button.icon]"></span>
+  <font-awesome-icon :icon="button.icon" />
 </button>
