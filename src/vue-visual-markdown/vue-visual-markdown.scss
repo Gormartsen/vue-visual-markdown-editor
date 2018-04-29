@@ -3,10 +3,16 @@
 @import "bootstrap-sass/assets/stylesheets/bootstrap/mixins";
 //@import "bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
 //@import "bootstrap-sass/assets/stylesheets/bootstrap/type";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/buttons";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/input-groups";
+
+.vue-visual-markdown /deep/ .toolbar{
+  @import "bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+  @import "bootstrap-sass/assets/stylesheets/bootstrap/input-groups";
+  @import "bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
+  @import "bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
+}
+
+//@import "bootstrap-sass/assets/stylesheets/bootstrap/dropdowns";
+//
 
 // Utility classes
 //@import "bootstrap/utilities";

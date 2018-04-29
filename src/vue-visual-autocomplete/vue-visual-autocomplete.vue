@@ -1,4 +1,4 @@
-<style scoped lang="scss" src="vue-visual-autocomplete.scss"></style>
+
 <template src="vue-visual-autocomplete.html"></template>
 <script>
 module.exports = {
