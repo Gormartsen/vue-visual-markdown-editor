@@ -9,6 +9,7 @@
     "copy-index": "node dev/copy-index.js",
     "build": "npm run build-app && npm run copy-index",
     "cs": "node_modules/.bin/eslint --fix --ext js,vue src dev index.js",
+    "watch-all": "node_modules/.bin/watchify -v -t vueify -g envify -e dev/app.js -o dist/bundle.js -p [ vueify/plugins/extract-css -o dist/bundle.css ]",
     "start": "node dev/live-server.js"
   },
   "repository": {
