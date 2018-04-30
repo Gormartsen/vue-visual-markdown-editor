@@ -1,5 +1,7 @@
 'use strict';
 
+global.MarkdownIt = require('markdown-it')
+
 var VisualMarkdown = require('./src/vue-visual-markdown/vue-visual-markdown.vue')
 
 if (!global._VVMEPreLoaderdIcons){

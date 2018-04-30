@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-app": "node dev/build.js",
+    "build-min": "node dev/build-min.js",
     "copy-index": "node dev/copy-index.js",
     "build": "npm run build-app && npm run copy-index",
     "cs": "node_modules/.bin/eslint --fix --ext js,vue src dev index.js",
@@ -45,6 +46,7 @@
     "fs-extra": "^5.0.0",
     "live-server": "^1.2.0",
     "node-sass": "^4.9.0",
+    "uglify-js": "^3.3.23",
     "vue": "^2.5.16",
     "vueify": "^9.4.1",
     "watchify": "^3.11.0"

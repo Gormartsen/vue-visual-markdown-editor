@@ -34,7 +34,7 @@ module.exports = {
     'config.markdown': {
       deep: true,
       handler: function (newValue) {
-        this.markdown = window.markdownit(newValue);
+        this.markdown = new global.MarkdownIt();
       }
     },
     'config.turndown': {
@@ -65,11 +65,11 @@ module.exports = {
     this.texteditor = this.$el.querySelector('.texteditor');
     this.toolbar = this.processToolbar(this.config.toolbar);
 
-    this.visualDrop = new FileDrop(this.visualeditor, {input: false});
-    this.textDrop = new FileDrop(this.texteditor, {input: false});
+   // this.visualDrop = new FileDrop(this.visualeditor, {input: false});
+   // this.textDrop = new FileDrop(this.texteditor, {input: false});
 
     var self = this;
-
+/*
     this.textDrop.event('upload', function (e) {
       self.textDrop.eventFiles(e).each(function (file) {
         file.readDataURI(
@@ -185,10 +185,10 @@ module.exports = {
           'text'
         );
       });
-    });
+    });*/
 
     // enable turndown(tomarkdown)
-    this.td = new TurndownService(this.config.turndown);
+    /*this.td = new TurndownService(this.config.turndown);
     this.td.addRule('font', {
       filter: ['font'],
       replacement: function (content, node) {
@@ -208,7 +208,7 @@ module.exports = {
       replacement: function (content) {
         return '\n' + content + '\n'
       }
-    })
+    })*/
     this.visualeditor.addEventListener("paste", function(event) {
       setTimeout(function(){
         self.reRender();
@@ -217,7 +217,7 @@ module.exports = {
     }, false);
 
     // Enable Markdown
-    this.markdown = mdGlobal
+    this.markdown = new global.MarkdownIt();
 
     this.visualeditor.innerHTML = this.markdown.render(this.value);
     this.markdowncontent = this.value;
@@ -228,7 +228,8 @@ module.exports = {
       var groups = [];
       groups.push('default');
       if (this.config.toolbar) {
-        for (var button of this.toolbar) {
+        for(var i in this.toolbar){
+          var button = this.toolbar[i];
           if (button.group) {
             if (groups.indexOf(button.group) == -1) {
               groups.push(button.group);
@@ -462,7 +463,8 @@ module.exports = {
         }
         if (toolbar.length > 0){
           var newToolbar = [];
-          for (var button of toolbar){
+          for(var i in toolbar){
+            var button = toolbar[i];
             if (button && button.type) {
               newToolbar.push(button);
             }
@@ -503,7 +505,8 @@ module.exports = {
       var buttons = [];
       var types = ['inline', 'input', 'wrap', 'dropdown'];
       if (this.config.toolbar) {
-        for (var button of this.toolbar) {
+        for(var i in this.toolbar){
+          var button = this.toolbar[i];
           if (button.group == group && button.tag && button.tag != '') {
             buttons.push(button);
           }
