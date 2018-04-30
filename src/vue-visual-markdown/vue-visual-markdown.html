@@ -10,6 +10,7 @@
           :button="button"
           :config="config"
           :mode="editormode"
+          :title="button.name"
           v-on:marktext="process_mark"
           v-on:replacetext="process_replace"
           v-on:clicked="process_click">
@@ -20,8 +21,13 @@
         <button
           class="btn btn-default"
           v-on:click="switchMode">
-          <span v-if="editormode == 'markdown'" class="fa fa-eye"></span>
-          <span v-if="editormode == 'html'" class="fa fa-code"></span>
+          <font-awesome-icon
+            v-if="editormode == 'markdown'" 
+            icon="eye" />
+          <font-awesome-icon
+            v-if="editormode == 'html'" 
+            icon="code" />
+          <font-awesome-icon icon="button.icon" />
         </button>
       </div>
     </div>

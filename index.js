@@ -15,6 +15,7 @@ global._VVMEPreLoaderdIcons['quote-left'] = require(
   '@fortawesome/fontawesome-free-solid/faQuoteLeft.js');
 global._VVMEPreLoaderdIcons.code = require('@fortawesome/fontawesome-free-solid/faCode.js');
 global._VVMEPreLoaderdIcons.list = require('@fortawesome/fontawesome-free-solid/faList.js');
+global._VVMEPreLoaderdIcons.eye = require('@fortawesome/fontawesome-free-solid/faEye.js');
 global._VVMEPreLoaderdIcons['list-ol'] = require('@fortawesome/fontawesome-free-solid/faListOl.js');
 
 VisualMarkdown.components = {
@@ -35,6 +36,8 @@ for (var i in VisualMarkdown.components) {
     }
   }
 }
+
+VisualMarkdown.components['font-awesome-icon'] = FontAwesomeCustom;
 
 var MarkdownEditor = {
   install: function (Vue) {

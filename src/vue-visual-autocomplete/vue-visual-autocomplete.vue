@@ -10,7 +10,7 @@ module.exports = {
       items: [],
     }
   },
-  props: ['button', 'mode'],
+  props: ['button', 'mode', 'config'],
   mounted: function(){
     var self = this;
     if (self.button.init) {

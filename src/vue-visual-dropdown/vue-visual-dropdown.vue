@@ -6,7 +6,7 @@ module.exports = {
       isopen: false,
     }
   },
-  props: ['button'],
+  props: ['button', 'config'],
   mounted: function(){
     var self = this;
     if (self.button.init) {

@@ -8,7 +8,7 @@
   <ul class="dropdown-menu" aria-labelledby="headerButton">
     <li v-for="line in button.items"
       v-on:mousedown="select($event, line)">
-      <span v-html="line.title"></span>
+      <a v-html="line.title"></a>
     </li>
   </ul>
 </div>

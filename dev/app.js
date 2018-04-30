@@ -4,6 +4,13 @@ var Vue = require('vue')
 var App = require('./app.vue')
 var VueVisualEditor = require('../index.js');
 var turndownRules = require('./turndownRules.js');
+
+
+global._VVMEPreLoaderdIcons.at = require('@fortawesome/fontawesome-free-solid/faAt.js');
+global._VVMEPreLoaderdIcons.hashtag = require('@fortawesome/fontawesome-free-solid/faHashtag.js');
+global._VVMEPreLoaderdIcons['reply-all'] = require(
+  '@fortawesome/fontawesome-free-solid/faReplyAll.js');
+
 Vue.use(VueVisualEditor)
 
 global.VueConfig = {
@@ -34,12 +41,11 @@ toolbar: [
   "list",
   "numlist",
   "code",
-  "quote",
-  "color",
-  'size', {
+  "quote", {
   group: '5',
+  name: 'assignee',
   type: 'autocomplete',
-  icon: 'fa-at',
+  icon: 'at',
   tag: 'a',
   preview: function(item) {
     return '<div class="assignee">' + item.login + '</div>';
@@ -79,8 +85,9 @@ toolbar: [
 },
 {
   group: '5',
+  name: 'issue',
   type: 'autocomplete',
-  icon: 'fa-hashtag',
+  icon: 'hashtag',
   tag: 'a',
   preview: function(issue) {
     return '<div class="issue">#' + issue.number + ' ' + issue.title.substr(0, 40) + '</div>';
@@ -127,8 +134,9 @@ toolbar: [
 },
 {
   group: '5',
+  name: 'reply',
   type: 'autocomplete',
-  icon: 'fa-reply-all',
+  icon: 'reply-all',
   tag: 'a',
   preview: function(template) {
     return '<div class="reply">#' + template.name + '</div>';
