@@ -5,7 +5,8 @@
     width="100%"
     height="100%"
     :viewBox="viewBox"
-    class="fa-icon">
+    class="fa-icon"
+    :class="this.icon">
     <path :d="svgData[4]" />
   </svg>
 </template>
@@ -25,19 +26,30 @@ module.exports = {
     };
   },
   props: ['icon'],
-  created: function(){
-    var icon = global._VVMEPreLoaderdIcons[this.icon];
-    if (icon) {
-      if (icon.icon) {
-        this.svgData = icon.icon;
-        this.isSvg = true;
-      }
+  watch: {
+    icon: function() {
+      this.prepareData()
     }
+  },
+  created: function(){
+    this.prepareData()
   },
   computed: {
     viewBox: function(){
       return '0 0 ' + this.svgData[0] + ' ' + this.svgData[1];
     },
+  },
+  methods: {
+    prepareData: function(){
+      var icon = global._VVMEPreLoaderdIcons[this.icon];
+      if (icon) {
+        console.log(this.icon, icon);
+        if (icon.icon) {
+          this.svgData = icon.icon;
+          this.isSvg = true;
+        }
+      }
+    }
   }
 }
 </script>

@@ -1,6 +1,7 @@
 'use strict';
 
 global.MarkdownIt = require('markdown-it')
+global.TurndownService = require('turndown')
 
 var VisualMarkdown = require('./src/vue-visual-markdown/vue-visual-markdown.vue')
 

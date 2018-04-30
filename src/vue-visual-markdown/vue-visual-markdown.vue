@@ -188,7 +188,7 @@ module.exports = {
     });*/
 
     // enable turndown(tomarkdown)
-    /*this.td = new TurndownService(this.config.turndown);
+    this.td = new TurndownService(this.config.turndown);
     this.td.addRule('font', {
       filter: ['font'],
       replacement: function (content, node) {
@@ -208,7 +208,7 @@ module.exports = {
       replacement: function (content) {
         return '\n' + content + '\n'
       }
-    })*/
+    })
     this.visualeditor.addEventListener("paste", function(event) {
       setTimeout(function(){
         self.reRender();
@@ -224,6 +224,12 @@ module.exports = {
     var self = this;
   },
   computed: {
+    modeIcon: function(){
+      if(this.editormode == 'markdown') {
+        return 'eye';
+      }
+      return 'code'
+    },
     toolbarGroups: function(){
       var groups = [];
       groups.push('default');

@@ -22,12 +22,7 @@
           class="btn btn-default"
           v-on:click="switchMode">
           <font-awesome-icon
-            v-if="editormode == 'markdown'" 
-            icon="eye" />
-          <font-awesome-icon
-            v-if="editormode == 'html'" 
-            icon="code" />
-          <font-awesome-icon icon="button.icon" />
+            :icon="modeIcon" />
         </button>
       </div>
     </div>
