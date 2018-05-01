@@ -33,8 +33,7 @@
   "homepage": "https://github.com/Gormartsen/vue-visual-markdown-editor#readme",
   "dependencies": {
     "markdown-it": "^8.4.1",
-    "turndown": "^4.0.1",
-    "vue-click-outside": "^1.0.7"
+    "turndown": "^4.0.1"
   },
   "devDependencies": {
     "@fortawesome/fontawesome": "^1.1.5",
