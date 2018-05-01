@@ -2,6 +2,9 @@
 <template src="vue-visual-autocomplete.html"></template>
 <script>
 module.exports = {
+  directives: {
+    'click-outside': require('vue-click-outside')
+  },
   data: function(){
     return {
       isopen: false,
@@ -42,18 +45,6 @@ module.exports = {
       this.isopen = !this.isopen;
       var self = this;
       if (this.isopen) {
-        var removeClickEvent = function(){
-          document.removeEventListener('click', clickEvent)
-        }
-        var clickEvent = function(event){
-          console.log(event.target)
-          removeClickEvent();
-          self.isopen = false;
-        }
-        setTimeout(function(){
-          console.log('add click')
-          document.addEventListener('click', clickEvent)
-        },0);
         this.$emit('marktext');
         setTimeout(function(){
           self.inputElement.focus();

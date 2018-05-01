@@ -1,8 +1,9 @@
 <div role="group"
-  :class="['btn-group', 'dropdown', {'open': isopen}]">
+  :class="['btn-group', 'dropdown', {'open': isopen}]"
+  v-click-outside="toggle">
   <button
     class="btn btn-default dropdown-toggle"
-    v-on:click.prevent="toggle()">
+    v-on:click="toggle">
     <font-awesome-icon :icon="button.icon" />
   </button>
   <ul class="dropdown-menu" aria-labelledby="headerButton">
