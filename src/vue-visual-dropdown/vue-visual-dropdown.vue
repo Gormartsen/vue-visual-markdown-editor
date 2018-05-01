@@ -3,7 +3,7 @@
 module.exports = {
   data: function(){
     return {
-      isopen: false,
+      isopen: false
     }
   },
   props: ['button', 'config'],
@@ -14,6 +14,26 @@ module.exports = {
     }
   },
   methods: {
+    toggle: function(){
+      console.log('toggle');
+      this.isopen = !this.isopen
+
+      if(this.isopen) {
+        var self = this;
+        var removeClickEvent = function(){
+          document.removeEventListener('click', clickEvent)
+        }
+        var clickEvent = function(event){
+          console.log(event.target)
+          removeClickEvent();
+          self.isopen = false;
+        }
+        setTimeout(function(){
+          console.log('add click')
+          document.addEventListener('click', clickEvent)
+        },0);
+      }
+    },
     select: function(event, line) {
       event.preventDefault();
       event.stopPropagation();
