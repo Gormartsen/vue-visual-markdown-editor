@@ -71,105 +71,90 @@ module.exports = {
       var self = this;
       this.textDrop.event('upload', function (e) {
         self.textDrop.eventFiles(e).each(function (file) {
-          file.readDataURI(
-            function (uri) {
-              self.texteditor.focus();
-              var start = self.texteditor.selectionStart;
-              var placeholder = '';
-              var isImage = false;
-              if (file.mime.indexOf('image') != -1) {
-                placeholder = ' ![Uploading ' + file.name + '](Please wait)';
-                isImage = true;
-              } else {
-                placeholder = ' [Uploading ' + file.name + '](Please wait)';
-              }
-              self.texteditor.value = self.texteditor.value.substr(0, start)
-                + placeholder
-                + self.texteditor.value.substr( start, self.texteditor.value.length);
-
-              self.config.filedrop(file, uri, function(err) {
-                var replaceStart = self.texteditor.value.indexOf(placeholder);
-                if (replaceStart != -1) {
-                  if (err) {
-                    var replaceBy = ' [Uploading ' + file.name + '](failed)';
-                    if (isImage) {
-                      replaceBy = ' ![Uploading ' + file.name + '](failed)';
-                    }
-                    self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
-                    + replaceBy
-                    + self.texteditor.value.substr( replaceStart + placeholder.length, self.texteditor.value.length);
-                  } else {
-                    var replaceBy = ' [' + file.name + '](' + response.publicUrl + ')';
-                    if (isImage) {
-                      replaceBy = ' ![' + file.name + '](' + response.publicUrl + ')';
-                    }
-                    self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
-                    + replaceBy
-                    + self.texteditor.value.substr( replaceStart + placeholder.length, self.texteditor.value.length);
-                  }
+          self.texteditor.focus();
+          var start = self.texteditor.selectionStart;
+          var placeholder = '';
+          var isImage = false;
+          if (file.mime.indexOf('image') != -1) {
+            placeholder = ' ![Uploading ' + file.name + '](Please wait)';
+            isImage = true;
+          } else {
+            placeholder = ' [Uploading ' + file.name + '](Please wait)';
+          }
+          self.texteditor.value = self.texteditor.value.substr(0, start)
+            + placeholder
+            + self.texteditor.value.substr( start, self.texteditor.value.length);
+          self.config.filedrop(file, function(err, response) {
+            var replaceStart = self.texteditor.value.indexOf(placeholder);
+            if (replaceStart != -1) {
+              if (err) {
+                var replaceBy = ' [Uploading ' + file.name + '](failed)';
+                if (isImage) {
+                  replaceBy = ' ![Uploading ' + file.name + '](failed)';
                 }
-                var event = new Event('input');
-                self.texteditor.dispatchEvent(event);
-              });
-            },
-            function () { alert('Problem reading this file.'); },
-            'text'
-          );
+                self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
+                + replaceBy
+                + self.texteditor.value.substr( replaceStart + placeholder.length, self.texteditor.value.length);
+              } else {
+                var replaceBy = ' [' + file.name + '](' + response.url + ')';
+                if (isImage) {
+                  replaceBy = ' ![' + file.name + '](' + response.url + ')';
+                }
+                self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
+                + replaceBy
+                + self.texteditor.value.substr( replaceStart + placeholder.length, self.texteditor.value.length);
+              }
+            }
+            var event = new Event('input');
+            self.texteditor.dispatchEvent(event);
+          });
         });
       });
       this.visualDrop.event('upload', function (e) {
         self.visualDrop.eventFiles(e).each(function (file) {
-          file.readDataURI(
-            function (uri) {
-              self.visualeditor.focus();
-              if (window.getSelection) {
-                var sel = window.getSelection();
-                if (sel.getRangeAt && sel.rangeCount) {
-                  var range = sel.getRangeAt(0);
-                  var root = document.createElement('uploading');
-                  root.innerHTML = '<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>'
-                    + ' <b>Uploading ' + file.name + '. Plase wait. </b>';
-                  range.insertNode(root);
-                  sel.removeAllRanges();
+          self.visualeditor.focus();
+          if (window.getSelection) {
+            var sel = window.getSelection();
+            if (sel.getRangeAt && sel.rangeCount) {
+              var range = sel.getRangeAt(0);
+              var root = document.createElement('uploading');
+              root.innerHTML = '<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>'
+                + ' <b>Uploading ' + file.name + '. Plase wait. </b>';
+              range.insertNode(root);
+              sel.removeAllRanges();
+            }
+          }
+          var isImage = false;
+          if (file.mime.indexOf('image') != -1) {
+            isImage = true;
+          }
+          self.config.filedrop(file, function(err, response) {
+            setTimeout(function(){
+              var node = self.visualeditor.querySelector('uploading');
+              if (node) {
+                if (err) {
+                  node.innerHTML = '<i class="fa fa-exclamation" aria-hidden="true"></i>'
+                    + ' <b style="color:red"> Failed to upload ' + file.name + '</b>';
+                } else {
+                  var element = ''
+                  if (isImage){
+                    element = document.createElement('img');
+                    element.src = response.url;
+                    element.alt = file.name;
+                  } else {
+                    element = document.createElement('a');
+                    element.href = response.url;
+                    element.innerHTML = file.name;
+                  }
+                  node.parentNode.insertBefore(element, node);
+                  node.parentNode.removeChild(node);
                 }
               }
+              self.emitHTMLInput();
+              self.visualeditor.focus();
 
-              var isImage = false;
-              if (file.mime.indexOf('image') != -1) {
-                isImage = true;
-              }
-
-              self.config.filedrop(file, uri, function(err) {
-                setTimeout(function(){
-                  var node = self.visualeditor.querySelector('uploading');
-                  if (node) {
-                    if (err) {
-                      node.innerHTML = '<i class="fa fa-exclamation" aria-hidden="true"></i>'
-                        + ' <b style="color:red"> Failed to upload ' + file.name + '</b>';
-                    } else {
-                      var element = ''
-                      if (isImage){
-                        element = document.createElement('img');
-                        element.src = response.publicUrl;
-                        element.alt = file.name;
-                      } else {
-                        element = document.createElement('a');
-                        element.href = response.publicUrl;
-                        element.innerHTML = file.name;
-                      }
-                      node.parentNode.insertBefore(element, node);
-                      node.parentNode.removeChild(node);
-                    }
-                  }
-                  self.emitHTMLInput();
-                  self.visualeditor.focus();
-
-                }, 1000);
-              });
-            },
-            function () { alert('Problem reading this file.'); },
-            'text'
-          );
+            }, 1000);
+          });
         });
       });
     }

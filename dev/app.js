@@ -18,9 +18,9 @@ markdown: {
   breaks: true,
   html: true,
 },
-filedrop: function(file, uri, callback){
-  var base64 = uri.substr(uri.indexOf(',') + 1);
-  console.log('filedrop', file, base64);
+filedrop: function(file, callback){
+  //var base64 = uri.substr(uri.indexOf(',') + 1);
+  console.log('filedrop', file);
   callback(null, {url: 'https://pbs.twimg.com/profile_images/469017630796296193/R-bEN4UP.png'})
 },
 turndown: {
