@@ -65,7 +65,7 @@ module.exports = {
     this.texteditor = this.$el.querySelector('.texteditor');
     this.toolbar = this.processToolbar(this.config.toolbar);
 
-    if(this.config.filedrop) {
+    if (this.config.filedrop) {
       this.visualDrop = new FileDrop(this.visualeditor, {input: false});
       this.textDrop = new FileDrop(this.texteditor, {input: false});
       var self = this;
@@ -197,7 +197,7 @@ module.exports = {
   },
   computed: {
     modeIcon: function(){
-      if(this.editormode == 'markdown') {
+      if (this.editormode == 'markdown') {
         return 'eye';
       }
       return 'code'
@@ -206,7 +206,7 @@ module.exports = {
       var groups = [];
       groups.push('default');
       if (this.config.toolbar) {
-        for(var i in this.toolbar){
+        for (var i in this.toolbar){
           var button = this.toolbar[i];
           if (button.group) {
             if (groups.indexOf(button.group) == -1) {
@@ -441,7 +441,7 @@ module.exports = {
         }
         if (toolbar.length > 0){
           var newToolbar = [];
-          for(var i in toolbar){
+          for (var i in toolbar){
             var button = toolbar[i];
             if (button && button.type) {
               newToolbar.push(button);
@@ -450,7 +450,7 @@ module.exports = {
               // add predefined button.
               if (buttonDefenitions[button]) {
                 var tmp = buttonDefenitions[button];
-                if(!tmp.name ) {
+                if (!tmp.name ) {
                   tmp.name = button;
                 }
                 newToolbar.push(tmp);
@@ -483,7 +483,7 @@ module.exports = {
       var buttons = [];
       var types = ['inline', 'input', 'wrap', 'dropdown'];
       if (this.config.toolbar) {
-        for(var i in this.toolbar){
+        for (var i in this.toolbar){
           var button = this.toolbar[i];
           if (button.group == group && button.tag && button.tag != '') {
             buttons.push(button);

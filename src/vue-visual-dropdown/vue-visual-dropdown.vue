@@ -18,7 +18,7 @@ module.exports = {
       console.log('toggle');
       this.isopen = !this.isopen
 
-      if(this.isopen) {
+      if (this.isopen) {
         var self = this;
         var removeClickEvent = function(){
           document.removeEventListener('click', clickEvent)
@@ -31,7 +31,7 @@ module.exports = {
         setTimeout(function(){
           console.log('add click')
           document.addEventListener('click', clickEvent)
-        },0);
+        }, 0);
       }
     },
     select: function(event, line) {

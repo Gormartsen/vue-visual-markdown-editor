@@ -53,7 +53,7 @@ module.exports = {
         setTimeout(function(){
           console.log('add click')
           document.addEventListener('click', clickEvent)
-        },0);
+        }, 0);
         this.$emit('marktext');
         setTimeout(function(){
           self.inputElement.focus();
