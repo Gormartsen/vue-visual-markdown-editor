@@ -33,11 +33,13 @@
     v-on:input="changed"
     v-on:change="changed"
     contenteditable="true"></p>
-  <textarea
-    v-show="editormode == 'markdown'"
-    v-model="markdowncontent"
-    class="texteditor"
-    v-on:input="emitTextEditor"></textarea>
+  <div class="form">
+    <textarea
+      v-show="editormode == 'markdown'"
+      v-model="markdowncontent"
+      class="texteditor form-control"
+      v-on:input="emitTextEditor"></textarea>
+  </div>
   <div>
     To upload file, please drag & drop it.
   </div>

@@ -4,7 +4,7 @@
 //@import "bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
 //@import "bootstrap-sass/assets/stylesheets/bootstrap/type";
 
-.vue-visual-markdown /deep/ .toolbar{
+.vue-visual-markdown /deep/ .toolbar {
   @import "bootstrap-sass/assets/stylesheets/bootstrap/buttons";
   @import "bootstrap-sass/assets/stylesheets/bootstrap/input-groups";
   @import "bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
@@ -12,6 +12,17 @@
 
   .btn {
     margin-right:  0px;
+  }
+}
+.vue-visual-markdown /deep/ .form {
+  width: 100%;
+
+  @import "bootstrap-sass/assets/stylesheets/bootstrap/forms";
+  
+  .texteditor {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
 }
 
