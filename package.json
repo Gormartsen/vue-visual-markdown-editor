@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/Gormartsen/vue-visual-markdown-editor#readme",
   "dependencies": {
+    "filedrop": "^2.0.0",
     "markdown-it": "^8.4.1",
     "turndown": "^4.0.1"
   },

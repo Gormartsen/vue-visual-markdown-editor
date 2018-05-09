@@ -40,7 +40,7 @@
       class="texteditor form-control"
       v-on:input="emitTextEditor"></textarea>
   </div>
-  <div>
+  <div v-if="config.filedrop">
     To upload file, please drag & drop it.
   </div>
 </div>

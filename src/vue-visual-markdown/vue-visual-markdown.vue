@@ -65,127 +65,114 @@ module.exports = {
     this.texteditor = this.$el.querySelector('.texteditor');
     this.toolbar = this.processToolbar(this.config.toolbar);
 
-   // this.visualDrop = new FileDrop(this.visualeditor, {input: false});
-   // this.textDrop = new FileDrop(this.texteditor, {input: false});
-
-    var self = this;
-/*
-    this.textDrop.event('upload', function (e) {
-      self.textDrop.eventFiles(e).each(function (file) {
-        file.readDataURI(
-          function (uri) {
-            self.texteditor.focus();
-            var start = self.texteditor.selectionStart;
-            var placeholder = '';
-            var isImage = false;
-            if (file.mime.indexOf('image') != -1) {
-              placeholder = ' ![Uploading ' + file.name + '](Please wait)';
-              isImage = true;
-            } else {
-              placeholder = ' [Uploading ' + file.name + '](Please wait)';
-            }
-            self.texteditor.value = self.texteditor.value.substr(0, start)
-              + placeholder
-              + self.texteditor.value.substr( start, self.texteditor.value.length);
-            var base64 = uri.substr(uri.indexOf(',') + 1);
-
-            ws.post('repos' + window.repoUrl + '/files', {
-              name: file.name,
-              size: file.size,
-              content: base64
-            }, function(err, response, headers){
-              console.log(err, response, headers);
-              var replaceStart = self.texteditor.value.indexOf(placeholder);
-              if (replaceStart != -1) {
-                if (err) {
-                  var replaceBy = ' [Uploading ' + file.name + '](failed)';
-                  if (isImage) {
-                    replaceBy = ' ![Uploading ' + file.name + '](failed)';
-                  }
-                  self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
-                  + replaceBy
-                  + self.texteditor.value.substr( replaceStart + placeholder.length, self.texteditor.value.length);
-                } else {
-                  var replaceBy = ' [' + file.name + '](' + response.publicUrl + ')';
-                  if (isImage) {
-                    replaceBy = ' ![' + file.name + '](' + response.publicUrl + ')';
-                  }
-                  self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
-                  + replaceBy
-                  + self.texteditor.value.substr( replaceStart + placeholder.length, self.texteditor.value.length);
-                }
+    if(this.config.filedrop) {
+      this.visualDrop = new FileDrop(this.visualeditor, {input: false});
+      this.textDrop = new FileDrop(this.texteditor, {input: false});
+      var self = this;
+      this.textDrop.event('upload', function (e) {
+        self.textDrop.eventFiles(e).each(function (file) {
+          file.readDataURI(
+            function (uri) {
+              self.texteditor.focus();
+              var start = self.texteditor.selectionStart;
+              var placeholder = '';
+              var isImage = false;
+              if (file.mime.indexOf('image') != -1) {
+                placeholder = ' ![Uploading ' + file.name + '](Please wait)';
+                isImage = true;
+              } else {
+                placeholder = ' [Uploading ' + file.name + '](Please wait)';
               }
-              var event = new Event('input');
-              self.texteditor.dispatchEvent(event);
-            });
-          },
-          function () { alert('Problem reading this file.'); },
-          'text'
-        );
-      });
-    });
+              self.texteditor.value = self.texteditor.value.substr(0, start)
+                + placeholder
+                + self.texteditor.value.substr( start, self.texteditor.value.length);
 
-    this.visualDrop.event('upload', function (e) {
-      self.visualDrop.eventFiles(e).each(function (file) {
-        file.readDataURI(
-          function (uri) {
-            self.visualeditor.focus();
-            if (window.getSelection) {
-              var sel = window.getSelection();
-              if (sel.getRangeAt && sel.rangeCount) {
-                var range = sel.getRangeAt(0);
-                var root = document.createElement('uploading');
-                root.innerHTML = '<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>'
-                  + ' <b>Uploading ' + file.name + '. Plase wait. </b>';
-                range.insertNode(root);
-                sel.removeAllRanges();
-              }
-            }
-            var isImage = false;
-            if (file.mime.indexOf('image') != -1) {
-              isImage = true;
-            }
-
-            var base64 = uri.substr(uri.indexOf(',') + 1);
-
-            ws.post('repos/gormartsen/files', {
-              name: file.name,
-              size: file.size,
-              content: base64
-            }, function(err, response, headers){
-              console.log(err, response, headers);
-              setTimeout(function(){
-                var node = self.visualeditor.querySelector('uploading');
-                if (node) {
+              self.config.filedrop(file, uri, function(err) {
+                var replaceStart = self.texteditor.value.indexOf(placeholder);
+                if (replaceStart != -1) {
                   if (err) {
-                    node.innerHTML = '<i class="fa fa-exclamation" aria-hidden="true"></i>'
-                      + ' <b style="color:red"> Failed to upload ' + file.name + '</b>';
-                  } else {
-                    var element = ''
-                    if (isImage){
-                      element = document.createElement('img');
-                      element.src = response.publicUrl;
-                      element.alt = file.name;
-                    } else {
-                      element = document.createElement('a');
-                      element.href = response.publicUrl;
-                      element.innerHTML = file.name;
+                    var replaceBy = ' [Uploading ' + file.name + '](failed)';
+                    if (isImage) {
+                      replaceBy = ' ![Uploading ' + file.name + '](failed)';
                     }
-                    node.parentNode.insertBefore(element, node);
-                    node.parentNode.removeChild(node);
+                    self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
+                    + replaceBy
+                    + self.texteditor.value.substr( replaceStart + placeholder.length, self.texteditor.value.length);
+                  } else {
+                    var replaceBy = ' [' + file.name + '](' + response.publicUrl + ')';
+                    if (isImage) {
+                      replaceBy = ' ![' + file.name + '](' + response.publicUrl + ')';
+                    }
+                    self.texteditor.value = self.texteditor.value.substr(0, replaceStart)
+                    + replaceBy
+                    + self.texteditor.value.substr( replaceStart + placeholder.length, self.texteditor.value.length);
                   }
                 }
-                self.emitHTMLInput();
-                self.visualeditor.focus();
-
-              }, 1000);
-            });
-          },
-          function () { alert('Problem reading this file.'); },
-          'text'
-        );
+                var event = new Event('input');
+                self.texteditor.dispatchEvent(event);
+              });
+            },
+            function () { alert('Problem reading this file.'); },
+            'text'
+          );
+        });
       });
-    });*/
+      this.visualDrop.event('upload', function (e) {
+        self.visualDrop.eventFiles(e).each(function (file) {
+          file.readDataURI(
+            function (uri) {
+              self.visualeditor.focus();
+              if (window.getSelection) {
+                var sel = window.getSelection();
+                if (sel.getRangeAt && sel.rangeCount) {
+                  var range = sel.getRangeAt(0);
+                  var root = document.createElement('uploading');
+                  root.innerHTML = '<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>'
+                    + ' <b>Uploading ' + file.name + '. Plase wait. </b>';
+                  range.insertNode(root);
+                  sel.removeAllRanges();
+                }
+              }
+
+              var isImage = false;
+              if (file.mime.indexOf('image') != -1) {
+                isImage = true;
+              }
+
+              self.config.filedrop(file, uri, function(err) {
+                setTimeout(function(){
+                  var node = self.visualeditor.querySelector('uploading');
+                  if (node) {
+                    if (err) {
+                      node.innerHTML = '<i class="fa fa-exclamation" aria-hidden="true"></i>'
+                        + ' <b style="color:red"> Failed to upload ' + file.name + '</b>';
+                    } else {
+                      var element = ''
+                      if (isImage){
+                        element = document.createElement('img');
+                        element.src = response.publicUrl;
+                        element.alt = file.name;
+                      } else {
+                        element = document.createElement('a');
+                        element.href = response.publicUrl;
+                        element.innerHTML = file.name;
+                      }
+                      node.parentNode.insertBefore(element, node);
+                      node.parentNode.removeChild(node);
+                    }
+                  }
+                  self.emitHTMLInput();
+                  self.visualeditor.focus();
+
+                }, 1000);
+              });
+            },
+            function () { alert('Problem reading this file.'); },
+            'text'
+          );
+        });
+      });
+    }
 
     // enable turndown(tomarkdown)
     this.td = new TurndownService(this.config.turndown);
