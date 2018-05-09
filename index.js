@@ -30,6 +30,7 @@ VisualMarkdown.components = {
   'vue-visual-wrap': require('./src/vue-visual-wrap/vue-visual-wrap.vue')
 }
 
+
 var FontAwesomeCustom = require('./src/font-awesome-icon/font-awesome-icon.vue');
 for (var i in VisualMarkdown.components) {
   if (VisualMarkdown.components[i].components) {
@@ -43,6 +44,41 @@ for (var i in VisualMarkdown.components) {
 
 VisualMarkdown.components['font-awesome-icon'] = FontAwesomeCustom;
 
+var events = ['click']
+if ( window.ontouchstart || navigator.msMaxTouchPoints > 0) {
+  events.push('touchstart');
+}
+var instances = [];
+var isAdded = false;
+
+var clickOutSide = function(event){
+  console.log('click started');
+  for (var i in instances) {
+    var el = instances[i].el;
+    var fn = instances[i].fn;
+    if (event.target !== el && !el.contains(event.target)) {
+      fn && fn(event)
+    }
+  }
+}
+
+var addListeners = function(){
+  if (!isAdded) {
+    for (var i in events) {
+      document.addEventListener(events[i], clickOutSide);
+    }
+  }
+}
+
+var RemoveListeners = function(){
+  if (instances.length > 0) {
+    return;
+  }
+  for (var i in events) {
+    document.addEventListener(events[i], clickOutSide);
+  }
+}
+
 var MarkdownEditor = {
   install: function (Vue) {
       if (Vue._visualMarkdownEditor) {
@@ -52,6 +88,24 @@ var MarkdownEditor = {
       Vue._visualMarkdownEditor = true;
 
       Vue.component('vue-visual-markdown', VisualMarkdown);
+      Vue.directive('click-outside', {
+        bind: function inserted(el, binding) {
+          addListeners();
+          instances.push({
+            el: el,
+            fn: binding.value
+          });
+        },
+        unbind: function(el) {
+          for (var i in instances) {
+            if (instances[i].el === el ) {
+              instances.splice(i, 1);
+            }
+          }
+  
+          RemoveListeners();
+        }
+      });
   }
 };
 

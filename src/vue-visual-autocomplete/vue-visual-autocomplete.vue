@@ -38,6 +38,9 @@ module.exports = {
     }
   },
   methods: {
+    clickOutside: function() {
+      this.isopen = false;
+    },
     switchOpen: function(){
       this.isopen = !this.isopen;
       var self = this;

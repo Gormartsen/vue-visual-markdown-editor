@@ -14,6 +14,9 @@ module.exports = {
     }
   },
   methods: {
+    clickOutside: function() {
+      this.isopen = false;
+    },
     toggle: function(){
       console.log('toggle');
       this.isopen = !this.isopen
