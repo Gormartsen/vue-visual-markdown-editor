@@ -1108,9 +1108,6 @@ module.exports = {
       } else {
         md_before = button.markdown.substring(0, md_selection);
       }
-/*        if(this.texteditor.value.substring(start - 1, start) != "\n") {
-        md_before = "\n" + md_before;
-      }*/
       var md_after = button.markdown.substring(md_selection + 'selection'.length);
       this.texteditor.value = this.texteditor.value.substring(0, start)
         + md_before
