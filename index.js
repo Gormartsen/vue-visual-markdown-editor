@@ -52,7 +52,6 @@ var instances = [];
 var isAdded = false;
 
 var clickOutSide = function(event){
-  console.log('click started');
   for (var i in instances) {
     var el = instances[i].el;
     var fn = instances[i].fn;
